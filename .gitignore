@@ -1,3 +1,9 @@
+# IDEA
+.idea
+!.idea/codeStyleSettings.xml
+*.iml
+*.iws
+
 # Logs
 logs
 *.log
