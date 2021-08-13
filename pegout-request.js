@@ -14,12 +14,12 @@ const parseRLPToPegoutRequests = (rlp) => {
     const rlpPegoutRequests = RLP.decode(rlp[3]);
     let pegoutRequests = [];
 
-    for (let i = 0; i < rlpPegoutRequests.length/3; i++) {
+    for (let i = 0; i < rlpPegoutRequests.length / 3; i++) {
         let destinationAddressHash160 = new BN(rlpPegoutRequests[i]).toString('hex');
-        let valueBuffer = Buffer.from(rlpPegoutRequests[i*3+1].toString('hex'), 'hex');
+        let valueBuffer = Buffer.from(rlpPegoutRequests[i * 3 + 1].toString('hex'), 'hex');
         valueBuffer.reverse();
         let amountInSatoshis = parseInt(valueBuffer.toString('hex'));
-        let rskTxHash = new BN(rlpPegoutRequests[i*3+2]).toString();
+        let rskTxHash = new BN(rlpPegoutRequests[i * 3 + 2]).toString();
 
         pegoutRequests.push(new PegoutRequest(destinationAddressHash160, amountInSatoshis, rskTxHash));
     }
@@ -27,7 +27,4 @@ const parseRLPToPegoutRequests = (rlp) => {
     return pegoutRequests;
 };
 
-module.exports = {
-    PegoutRequest,
-    parseRLPToPegoutRequests
-};
+exports.parseRLPToPegoutRequests = parseRLPToPegoutRequests;

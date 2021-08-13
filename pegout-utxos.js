@@ -28,8 +28,5 @@ const parseRLPToPegoutUtxos = (rlp) => {
     return pegoutUtxos;
 };
 
-module.exports = {
-    PegoutUtxo,
-    parseRLPToPegoutUtxos
-};
+exports.parseRLPToPegoutUtxos = parseRLPToPegoutUtxos;
    

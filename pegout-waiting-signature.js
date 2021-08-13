@@ -9,17 +9,14 @@ class PegoutWaitingSignature {
 }
 
 const parseRLPToPegoutWaitingSignatures = (rlpData) => {
-    let rlpRskTxsWaitingForSignatures = RLP.decode(rlpData[2]);
+    const rlpRskTxsWaitingForSignatures = RLP.decode(rlpData[2]);
     let rskTxsWaitingForSignatures = [];
-    for (let i = 0; i < rlpRskTxsWaitingForSignatures.length/2; i++) {
-        let rskTxHash = rlpRskTxsWaitingForSignatures[i*2].toString('hex');
-        let btcTransactionSerialized = rlpRskTxsWaitingForSignatures[i*2+1].toString('hex');
+    for (let i = 0; i < rlpRskTxsWaitingForSignatures.length / 2; i++) {
+        let rskTxHash = rlpRskTxsWaitingForSignatures[i * 2].toString('hex');
+        let btcTransactionSerialized = rlpRskTxsWaitingForSignatures[i * 2 + 1].toString('hex');
         rskTxsWaitingForSignatures.push(new PegoutWaitingSignature(rskTxHash, btcTransactionSerialized));
     }
     return rskTxsWaitingForSignatures;
 };
 
-module.exports = {
-    PegoutWaitingSignature,
-    parseRLPToPegoutWaitingSignatures
-};
+exports.parseRLPToPegoutWaitingSignatures = parseRLPToPegoutWaitingSignatures;

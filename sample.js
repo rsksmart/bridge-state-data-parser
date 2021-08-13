@@ -1,6 +1,6 @@
 let networkParser = require('./network');
 const Web3 = require('web3');
-const bridgeStatus = require('./bridge-status');
+const bridgeStatus = require('./index');
 
 (async () => {
     try {

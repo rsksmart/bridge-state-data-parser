@@ -19,13 +19,12 @@ class BridgeStatus {
 module.exports = async (web3) => {
     const bridge = Bridge.build(web3);
     const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
-    let decodedListOfStates = RLP.decode(bridgeStateEncoded);
+    const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
-    let pegoutWaitingSignatures =  pegoutWaitingSignaturesParser(decodedListOfStates);
-    let pegoutWaitingConfirmations =  pegoutWaitingConfirmationsParser(decodedListOfStates);
-    let pegoutUtxos =  pegoutUtxosParser(decodedListOfStates);
-    let pegoutRequests =  pegoutRequestsParser(decodedListOfStates);
+    const pegoutWaitingSignatures = pegoutWaitingSignaturesParser(decodedListOfStates);
+    const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates);
+    const pegoutUtxos = pegoutUtxosParser(decodedListOfStates);
+    const pegoutRequests = pegoutRequestsParser(decodedListOfStates);
 
     return new BridgeStatus(pegoutWaitingSignatures, pegoutWaitingConfirmations, pegoutUtxos, pegoutRequests)
 };
-
