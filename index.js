@@ -21,10 +21,10 @@ module.exports = async (web3) => {
     const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
-    const pegoutWaitingSignatures = pegoutWaitingSignaturesParser(decodedListOfStates);
-    const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates);
-    const pegoutUtxos = pegoutUtxosParser(decodedListOfStates);
-    const pegoutRequests = pegoutRequestsParser(decodedListOfStates);
+    const pegoutWaitingSignatures = pegoutWaitingSignaturesParser(decodedListOfStates[2]);
+    const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
+    const pegoutUtxos = pegoutUtxosParser(decodedListOfStates[1]);
+    const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3]);
 
     return new BridgeStatus(pegoutWaitingSignatures, pegoutWaitingConfirmations, pegoutUtxos, pegoutRequests)
 };

@@ -10,7 +10,7 @@ class PegoutUtxo {
 }
 
 const parseRLPToPegoutUtxos = (rlp) => {
-    const rlpPegoutUtxosList = RLP.decode(rlp[1]);
+    const rlpPegoutUtxosList = RLP.decode(rlp);
 
     let pegoutUtxos = [];
 

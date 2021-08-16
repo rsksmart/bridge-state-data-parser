@@ -11,7 +11,7 @@ class PegoutWaitingConfirmation {
 }
 
 const parseRLPToPegoutWaitingConfirmations = (rlp) => {
-    let rlpReleaseTransactionSet = RLP.decode(rlp[4]);
+    let rlpReleaseTransactionSet = RLP.decode(rlp);
     let releaseTransactionSet = [];
     for (let i = 0; i < rlpReleaseTransactionSet.length / 3; i++) {
         let btcTxHash = rlpReleaseTransactionSet[i * 3].toString('hex');

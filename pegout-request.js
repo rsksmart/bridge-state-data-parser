@@ -11,7 +11,7 @@ class PegoutRequest {
 }
 
 const parseRLPToPegoutRequests = (rlp) => {
-    const rlpPegoutRequests = RLP.decode(rlp[3]);
+    const rlpPegoutRequests = RLP.decode(rlp);
     let pegoutRequests = [];
 
     for (let i = 0; i < rlpPegoutRequests.length / 3; i++) {

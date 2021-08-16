@@ -9,7 +9,7 @@ class PegoutWaitingSignature {
 }
 
 const parseRLPToPegoutWaitingSignatures = (rlpData) => {
-    const rlpRskTxsWaitingForSignatures = RLP.decode(rlpData[2]);
+    const rlpRskTxsWaitingForSignatures = RLP.decode(rlpData);
     let rskTxsWaitingForSignatures = [];
     for (let i = 0; i < rlpRskTxsWaitingForSignatures.length / 2; i++) {
         let rskTxHash = rlpRskTxsWaitingForSignatures[i * 2].toString('hex');
