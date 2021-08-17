@@ -15,11 +15,13 @@
   "license": "ISC",
   "dependencies": {
     "@rsksmart/rsk-precompiled-abis": "^3.0.0-PAPYRUS",
-    "ethereumjs-util": "^7.0.10",
-    "rsk-transaction-helper": "github:rootstock/rsk-transaction-helper#v1.1.0"
+    "ethereumjs-util": "^7.0.10"
   },
   "bugs": {
     "url": "https://github.com/rsksmart/bridge-state-data-parser/issues"
   },
-  "homepage": "https://github.com/rsksmart/bridge-state-data-parser#readme"
+  "homepage": "https://github.com/rsksmart/bridge-state-data-parser#readme",
+  "devDependencies": {
+    "web3": "^1.5.2"
+  }
 }
