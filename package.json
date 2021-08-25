@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@rsksmart/rsk-precompiled-abis": "^3.0.0-PAPYRUS",
+    "@rsksmart/rsk-precompiled-abis": "^4.0.2-IRIS",
     "ethereumjs-util": "^7.0.10"
   },
   "bugs": {

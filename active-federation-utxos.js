@@ -1,7 +1,7 @@
 const ethUtils = require('ethereumjs-util');
 const RLP = ethUtils.rlp;
 
-class PegoutUtxo {
+class Utxo {
     constructor(btcTxHash, btcTxOutputIndex, valueInSatoshis) {
         this.btcTxHash = btcTxHash;
         this.btcTxOutputIndex = btcTxOutputIndex;
@@ -9,12 +9,12 @@ class PegoutUtxo {
     }
 }
 
-const parseRLPToPegoutUtxos = (rlp) => {
-    const rlpPegoutUtxosList = RLP.decode(rlp);
+const parseRLPToActiveFederationUtxos = (rlp) => {
+    const rlpActiveFederationUtxosList = RLP.decode(rlp);
 
-    let pegoutUtxos = [];
+    let activeFederationUtxos = [];
 
-    rlpPegoutUtxosList.forEach(utxo => {
+    rlpActiveFederationUtxosList.forEach(utxo => {
         let valueBuffer = Buffer.from(utxo.toString('hex').substr(0, 15), 'hex');
         valueBuffer.reverse();
         let valueInSatoshis = parseInt(valueBuffer.toString('hex'), 16);
@@ -22,11 +22,11 @@ const parseRLPToPegoutUtxos = (rlp) => {
         let btcTxHash = Buffer.from(utxo.toString('hex').substr(70, 64), 'hex').toString('hex');
         let btcTxOutputIndex = parseInt(utxo.toString('hex').substr(134, 2), 16);
 
-        pegoutUtxos.push(new PegoutUtxo(btcTxHash, btcTxOutputIndex, valueInSatoshis));
+        activeFederationUtxos.push(new Utxo(btcTxHash, btcTxOutputIndex, valueInSatoshis));
     })
 
-    return pegoutUtxos;
+    return activeFederationUtxos;
 };
 
-exports.parseRLPToPegoutUtxos = parseRLPToPegoutUtxos;
+exports.parseRLPToActiveFederationUtxos = parseRLPToActiveFederationUtxos;
    

@@ -2,9 +2,9 @@ const ethUtils = require('ethereumjs-util');
 const RLP = ethUtils.rlp;
 
 class PegoutWaitingSignature {
-    constructor(rskTxHash, btcTransaction) {
+    constructor(rskTxHash, btcRawTx) {
         this.rskTxHash = rskTxHash;
-        this.btcTransaction = btcTransaction;
+        this.btcRawTx = btcRawTx;
     }
 }
 

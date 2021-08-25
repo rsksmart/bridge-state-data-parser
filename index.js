@@ -2,17 +2,17 @@ const Bridge = require('@rsksmart/rsk-precompiled-abis').bridge;
 const ethUtils = require('ethereumjs-util');
 const RLP = ethUtils.rlp;
 
+const activeFederationUtxosParser = require('./active-federation-utxos').parseRLPToActiveFederationUtxos;
 const pegoutWaitingSignaturesParser = require('./pegout-waiting-signature').parseRLPToPegoutWaitingSignatures;
-const pegoutWaitingConfirmationsParser = require('./pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
-const pegoutUtxosParser = require('./pegout-utxos').parseRLPToPegoutUtxos;
 const pegoutRequestsParser = require('./pegout-request').parseRLPToPegoutRequests;
+const pegoutWaitingConfirmationsParser = require('./pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
 
 class BridgeStatus {
-    constructor(waitingSignatures, waitingConfirmations, pegoutUtxos, pegoutRequests) {
-        this.waitingSignatures = waitingSignatures;
-        this.waitingConfirmations = waitingConfirmations;
-        this.utxos = pegoutUtxos;
+    constructor(activeFederationUtxos, waitingSignatures, pegoutRequests, waitingConfirmations) {
+        this.activeFederationUtxos = activeFederationUtxos;
+        this.pegoutsWaitingForSignatures = waitingSignatures;
         this.pegoutRequests = pegoutRequests;
+        this.pegoutsWaitingForConfirmations = waitingConfirmations;
     }
 }
 
@@ -21,10 +21,10 @@ module.exports = async (web3) => {
     const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
+    const activeFederationUtxos = activeFederationUtxosParser(decodedListOfStates[1]);
     const pegoutWaitingSignatures = pegoutWaitingSignaturesParser(decodedListOfStates[2]);
-    const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
-    const pegoutUtxos = pegoutUtxosParser(decodedListOfStates[1]);
     const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3]);
+    const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
 
-    return new BridgeStatus(pegoutWaitingSignatures, pegoutWaitingConfirmations, pegoutUtxos, pegoutRequests)
+    return new BridgeStatus(activeFederationUtxos, pegoutWaitingSignatures, pegoutRequests, pegoutWaitingConfirmations)
 };
