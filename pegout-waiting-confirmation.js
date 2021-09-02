@@ -16,7 +16,7 @@ const parseRLPToPegoutWaitingConfirmations = (rlp) => {
     for (let i = 0; i < rlpReleaseTransactionSet.length / 3; i++) {
         let btcRawTx = rlpReleaseTransactionSet[i * 3].toString('hex');
         let rskBlockNumber = new BN(rlpReleaseTransactionSet[i * 3 + 1]).toString();
-        let rskTxHash = new BN(rlpReleaseTransactionSet[i * 3 + 2]).toString();
+        let rskTxHash = new BN(rlpReleaseTransactionSet[i * 3 + 2]).toString('hex');
         releaseTransactionSet.push(new PegoutWaitingConfirmation(btcRawTx, rskBlockNumber, rskTxHash));
     }
     return releaseTransactionSet
