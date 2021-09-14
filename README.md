@@ -1,4 +1,10 @@
+# Disclaimer
+
+This is a beta version until audited by the security team. Any comments or suggestions feel free to contribute or reach out at our [open slack](https://developers.rsk.co/slack).
+
 # bridge-state-data-parser
+
+Library to get the current bridge state. This include available UTXOs, pegout requests waiting to be processed, pegout transactions waiting for signatures and pegout transactions waiting for block confirmations to be signed and broadcasted.
 
 ## Usage
 
