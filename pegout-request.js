@@ -16,8 +16,7 @@ const parseRLPToPegoutRequests = (rlp) => {
 
     for (let i = 0; i < rlpPegoutRequests.length / 3; i++) {
         let destinationAddressHash160 = Buffer.from(rlpPegoutRequests[i * 3], 'hex').toString('hex');
-        let valueBuffer = new BN(rlpPegoutRequests[i * 3 + 1]).toString();
-        let amountInSatoshis = valueBuffer;
+        let amountInSatoshis = new BN(rlpPegoutRequests[i * 3 + 1]).toString();
         let rskTxHash = Buffer.from(rlpPegoutRequests[i * 3 + 2], 'hex').toString('hex');
 
         pegoutRequests.push(new PegoutRequest(destinationAddressHash160, amountInSatoshis, rskTxHash));
