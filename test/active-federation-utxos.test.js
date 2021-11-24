@@ -1,6 +1,6 @@
 const activeFederationUtxosParser = require('../active-federation-utxos').parseRLPToActiveFederationUtxos;
 const { expect } = require('chai');
-const utxoBytes = require('./resources/utsoBytes');
+const utxoBytes = require('./resources/utxoBytes');
 
 describe("active federation utxos parser", () => {
 
