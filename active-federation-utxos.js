@@ -23,7 +23,7 @@ const parseRLPToActiveFederationUtxos = (rlp) => {
         let btcTxOutputIndex = parseInt(utxo.toString('hex').substr(134, 2), 16);
 
         activeFederationUtxos.push(new Utxo(btcTxHash, btcTxOutputIndex, valueInSatoshis));
-    })
+    });
 
     return activeFederationUtxos;
 };
