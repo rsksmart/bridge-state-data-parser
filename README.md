@@ -27,7 +27,7 @@ To run test with coverage, run:
 
 To run tests on a specific file, fun:
 
-> npm test test/pegout-waiting-confirmation.test.js
+> npm test <testfilepath>
 
 Example:
 
