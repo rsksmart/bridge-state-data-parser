@@ -8,18 +8,27 @@ This is a beta version until audited by the security team. Any comments or sugge
 
 Library to get the current bridge state. This include available UTXOs, pegout requests waiting to be processed, pegout transactions waiting for signatures and pegout transactions waiting for block confirmations to be signed and broadcasted.
 
+## Installation
+```
+npm install @rsksmart/bridge-state-data-parser
+```
+
 ## Usage
 
-### Install dependencies
-```
-npm install
-```
+This library exposes a function that expects a web3 instance of the RSK node to connect to. The function will proceed to fetch and parse the Bridge state and return an object with it.
 
-### Run Project
+### Example
 ```
 node sample/sample.js mainnet/testnet or pass a network url for regtest... http://localhost:4444
 ```
 to see the current status of pegouts on the provided network.
+
+## Development
+
+#### Install dependencies
+```
+npm ci
+```
 
 ## Test
 
