@@ -18,3 +18,17 @@ npm install
 node sample/sample.js mainnet/testnet or pass a network url for regtest... http://localhost:4444
 ```
 to see the current status of pegouts on the provided network.
+
+## Test
+
+To run test with coverage, run:
+
+> npm test
+
+To run tests on a specific file, fun:
+
+> npm test <testfilepath>
+
+Example:
+
+> npm test test/pegout-waiting-confirmation.test.js
