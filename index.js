@@ -16,9 +16,13 @@ class BridgeStatus {
     }
 }
 
+async function getBridgeStateEncoded(bridge){
+    return await bridge.methods.getStateForDebugging().call();
+}
+
 module.exports = async (web3) => {
     const bridge = Bridge.build(web3);
-    const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
+    const bridgeStateEncoded = await getBridgeStateEncoded(bridge);
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
     const activeFederationUtxos = activeFederationUtxosParser(decodedListOfStates[1]);

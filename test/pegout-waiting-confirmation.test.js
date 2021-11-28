@@ -25,8 +25,9 @@ describe("Pegout waiting confirmation parser", () => {
         const result = pegoutWaitingConfirmationsParser(Buffer.from(pegoutWaitingConfirmationBytes, 'hex'));
         expect(Array.isArray(result)).to.be.true;
         expect(result.length).to.equal(5);
-        const hasExpectedProperties = utxo => {
-            return utxo.hasOwnProperty('btcRawTx') && utxo.hasOwnProperty('pegoutCreationBlockNumber') && utxo.hasOwnProperty('rskTxHash');
+        const hasExpectedProperties = pegout => {
+            return pegout.hasOwnProperty('btcRawTx') && pegout.hasOwnProperty('pegoutCreationBlockNumber')
+            && pegout.hasOwnProperty('rskTxHash');
         };
         expect(result.every(hasExpectedProperties)).to.be.true;
     });

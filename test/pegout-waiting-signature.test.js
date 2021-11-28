@@ -1,6 +1,6 @@
 const pegoutWaitingSignaturesParser = require('../pegout-waiting-signature').parseRLPToPegoutWaitingSignatures;
 const { expect } = require('chai');
- 
+const pegoutRequestBytes = require('./resources/pegoutRequestBytes');
 describe("Pegout waiting signatures parser", () => {
 
     it("should return an empty array when provided null", () => {
@@ -19,4 +19,14 @@ describe("Pegout waiting signatures parser", () => {
         expect(() => pegoutWaitingSignaturesParser("invalid")).to.throw(Error, "invalid remainder");
     });
  
+    it("should return pegouts waiting signatures", () => {
+        const result = pegoutWaitingSignaturesParser(Buffer.from(pegoutRequestBytes, 'hex'));
+        expect(Array.isArray(result)).to.be.true;
+        expect(result.length).to.equal(33);
+        const hasExpectedProperties = pegout => {
+            return pegout.hasOwnProperty('rskTxHash') && pegout.hasOwnProperty('btcRawTx');
+        };
+        expect(result.every(hasExpectedProperties)).to.be.true;
+    });
+
 });

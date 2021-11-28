@@ -25,8 +25,9 @@ describe("Pegout request parser", () => {
         const result = pegoutRequestsParser(Buffer.from(pegoutRequestBytes, 'hex'));
         expect(Array.isArray(result)).to.be.true;
         expect(result.length).to.equal(22);
-        const hasExpectedProperties = utxo => {
-            return utxo.hasOwnProperty('destinationAddressHash160') && utxo.hasOwnProperty('amountInSatoshis') && utxo.hasOwnProperty('rskTxHash');
+        const hasExpectedProperties = pegout => {
+            return pegout.hasOwnProperty('destinationAddressHash160') && pegout.hasOwnProperty('amountInSatoshis')
+            && pegout.hasOwnProperty('rskTxHash');
         };
         expect(result.every(hasExpectedProperties)).to.be.true;
     });
