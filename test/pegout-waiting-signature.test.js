@@ -18,15 +18,5 @@ describe("Pegout waiting signatures parser", () => {
     it("should throw an error when an invalid input is provided", () => {
         expect(() => pegoutWaitingSignaturesParser("invalid")).to.throw(Error, "invalid remainder");
     });
- 
-    it("should return pegouts waiting signatures", () => {
-        const result = pegoutWaitingSignaturesParser(Buffer.from(pegoutRequestBytes, 'hex'));
-        expect(Array.isArray(result)).to.be.true;
-        expect(result.length).to.equal(33);
-        const hasExpectedProperties = pegout => {
-            return pegout.hasOwnProperty('rskTxHash') && pegout.hasOwnProperty('btcRawTx');
-        };
-        expect(result.every(hasExpectedProperties)).to.be.true;
-    });
 
 });
