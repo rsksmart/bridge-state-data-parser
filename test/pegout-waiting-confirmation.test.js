@@ -1,7 +1,7 @@
 const pegoutWaitingConfirmationsParser = require('../pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
 const { expect } = require('chai');
  
-const pegoutWaitingConfirmationBytes = require('./resources/pegoutWaitingConfirmationBytes');
+const { pegoutWaitingConfirmationBytes, mockedPegoutsWaitingConfirmation } = require('./resources/pegoutWaitingConfirmationBytes');
 
 describe("Pegout waiting confirmation parser", () => {
 
@@ -25,11 +25,7 @@ describe("Pegout waiting confirmation parser", () => {
         const result = pegoutWaitingConfirmationsParser(Buffer.from(pegoutWaitingConfirmationBytes, 'hex'));
         expect(Array.isArray(result)).to.be.true;
         expect(result.length).to.equal(5);
-        const hasExpectedProperties = pegout => {
-            return pegout.hasOwnProperty('btcRawTx') && pegout.hasOwnProperty('pegoutCreationBlockNumber')
-            && pegout.hasOwnProperty('rskTxHash');
-        };
-        expect(result.every(hasExpectedProperties)).to.be.true;
+        expect(result).to.deep.equal(mockedPegoutsWaitingConfirmation);
     });
  
 });

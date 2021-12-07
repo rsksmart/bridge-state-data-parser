@@ -1,6 +1,6 @@
 const pegoutWaitingSignaturesParser = require('../pegout-waiting-signature').parseRLPToPegoutWaitingSignatures;
 const { expect } = require('chai');
-const pegoutRequestBytes = require('./resources/pegoutRequestBytes');
+
 describe("Pegout waiting signatures parser", () => {
 
     it("should return an empty array when provided null", () => {
