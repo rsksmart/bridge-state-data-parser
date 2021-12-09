@@ -51,7 +51,9 @@ This will check and show if the code complies with our standard.
 To get eslint help you make the required changes, you can run:
 
 > npx eslint . --fix
-> or
+
+or
+
 > npm run eslintFix
 
 This command will try to fix the errors, leaving the once it cannot fix to the developer to solve manually.
@@ -65,7 +67,9 @@ This will check and show if the code complies with our standard.
 To get prettier help you make the required changes, you can run:
 
 > npx prettier --write .
-> or
+
+or
+
 > npm run prettierFix
 
 This command will format the code accordingly.
