@@ -1,7 +1,7 @@
 const pegoutRequestsParser = require('../pegout-request').parseRLPToPegoutRequests;
 const { expect } = require('chai');
 
-const pegoutRequestBytes = require('./resources/pegoutRequestBytes');
+const { encodedPegoutRequest, decodedPegoutRequest } = require('./resources/pegout-request-test-data');
  
 describe("Pegout request parser", () => {
 
@@ -22,13 +22,8 @@ describe("Pegout request parser", () => {
     });
 
     it("should return utxos", () => {
-        const result = pegoutRequestsParser(Buffer.from(pegoutRequestBytes, 'hex'));
-        expect(Array.isArray(result)).to.be.true;
-        expect(result.length).to.equal(22);
-        const hasExpectedProperties = utxo => {
-            return utxo.hasOwnProperty('destinationAddressHash160') && utxo.hasOwnProperty('amountInSatoshis') && utxo.hasOwnProperty('rskTxHash');
-        };
-        expect(result.every(hasExpectedProperties)).to.be.true;
+        const result = pegoutRequestsParser(Buffer.from(encodedPegoutRequest, 'hex'));
+        expect(result).to.deep.equal(decodedPegoutRequest);
     });
  
 });

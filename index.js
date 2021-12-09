@@ -26,5 +26,5 @@ module.exports = async (web3) => {
     const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3]);
     const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
 
-    return new BridgeStatus(activeFederationUtxos, pegoutWaitingSignatures, pegoutRequests, pegoutWaitingConfirmations)
+    return new BridgeStatus(activeFederationUtxos, pegoutWaitingSignatures, pegoutRequests, pegoutWaitingConfirmations);
 };
