@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha"
+    "test": "nyc mocha",
+    "eslint": "npx eslint .",
+    "prettier": "npx prettier --check ."
   },
+  "pre-commit": [
+    "test",
+    "eslint",
+    "prettier"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rsksmart/bridge-state-data-parser.git"
@@ -23,8 +30,16 @@
   "homepage": "https://github.com/rsksmart/bridge-state-data-parser#readme",
   "devDependencies": {
     "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "mocha": "^9.1.3",
     "nyc": "^15.1.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.5.1",
     "rewire": "^5.0.0",
     "sinon": "^12.0.1",
     "web3": "^1.5.2"
