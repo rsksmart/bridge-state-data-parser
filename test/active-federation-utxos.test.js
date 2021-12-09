@@ -1,6 +1,6 @@
 const activeFederationUtxosParser = require('../active-federation-utxos').parseRLPToActiveFederationUtxos;
 const { expect } = require('chai');
-const { activeFederationUtxoBytes, mockedActiveFederationUtxos } = require('./resources/utxoBytes');
+const { encodedActiveFederationUtxos, decodedActiveFederationUtxos } = require('./resources/active-federation-utxo-test-data');
 
 describe("active federation utxos parser", () => {
 
@@ -21,10 +21,10 @@ describe("active federation utxos parser", () => {
     });
 
     it("should return utxos", () => {
-        const result = activeFederationUtxosParser(Buffer.from(activeFederationUtxoBytes, 'hex'));
+        const result = activeFederationUtxosParser(Buffer.from(encodedActiveFederationUtxos, 'hex'));
         expect(Array.isArray(result)).to.be.true;
         expect(result.length).to.equal(35);
-        expect(result).to.deep.equal(mockedActiveFederationUtxos);
+        expect(result).to.deep.equal(decodedActiveFederationUtxos);
     });
 
 });

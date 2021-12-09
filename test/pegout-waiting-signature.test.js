@@ -1,7 +1,7 @@
 const pegoutWaitingSignaturesParser = require('../pegout-waiting-signature').parseRLPToPegoutWaitingSignatures;
 const { expect } = require('chai');
 
-const { pegoutWaitingSignaturesBytes, mockedPegoutsWaitingSignatures } = require('./resources/pegoutWaitingSignatureBytes');
+const { encodedPegoutsWaitingSignatures, decodedPegoutsWaitingSignatures } = require('./resources/pegout-waiting-signature-test-data');
 
 describe("Pegout waiting signatures parser", () => {
 
@@ -22,10 +22,10 @@ describe("Pegout waiting signatures parser", () => {
     });
 
     it("should return pegouts waiting signatures", () => {
-        const result = pegoutWaitingSignaturesParser(Buffer.from(pegoutWaitingSignaturesBytes, 'hex'));
+        const result = pegoutWaitingSignaturesParser(Buffer.from(encodedPegoutsWaitingSignatures, 'hex'));
         expect(Array.isArray(result)).to.be.true;
         expect(result.length).to.equal(2);
-        expect(result).to.deep.equal(mockedPegoutsWaitingSignatures);
+        expect(result).to.deep.equal(decodedPegoutsWaitingSignatures);
     });
 
 });
