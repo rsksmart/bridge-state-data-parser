@@ -23,8 +23,6 @@ describe("Pegout request parser", () => {
 
     it("should return utxos", () => {
         const result = pegoutRequestsParser(Buffer.from(encodedPegoutRequest, 'hex'));
-        expect(Array.isArray(result)).to.be.true;
-        expect(result.length).to.equal(5);
         expect(result).to.deep.equal(decodedPegoutRequest);
     });
  

@@ -23,8 +23,6 @@ describe("Pegout waiting signatures parser", () => {
 
     it("should return pegouts waiting signatures", () => {
         const result = pegoutWaitingSignaturesParser(Buffer.from(encodedPegoutsWaitingSignatures, 'hex'));
-        expect(Array.isArray(result)).to.be.true;
-        expect(result.length).to.equal(2);
         expect(result).to.deep.equal(decodedPegoutsWaitingSignatures);
     });
 

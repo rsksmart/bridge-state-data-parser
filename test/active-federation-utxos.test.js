@@ -22,8 +22,6 @@ describe("active federation utxos parser", () => {
 
     it("should return utxos", () => {
         const result = activeFederationUtxosParser(Buffer.from(encodedActiveFederationUtxos, 'hex'));
-        expect(Array.isArray(result)).to.be.true;
-        expect(result.length).to.equal(35);
         expect(result).to.deep.equal(decodedActiveFederationUtxos);
     });
 
