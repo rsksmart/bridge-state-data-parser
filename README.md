@@ -37,3 +37,41 @@ To run tests on a specific file, fun:
 Example:
 
 > npm test test/pegout-waiting-confirmation.test.js
+
+We are using nyc code coverage, so when running the tests, nyc will create a code coverage report and print it in the console.
+
+## Eslint and Prettier
+
+To run the eslint check, run:
+
+> npm run eslint
+
+This will check and show if the code complies with our standard.
+
+To get eslint help you make the required changes, you can run:
+
+> npx eslint . --fix
+
+This command will try to fix the errors, leaving the once it cannot fix to the developer to solve manually.
+
+To run the prettier check, fun:
+
+> npm run prettier
+
+This will check and show if the code complies with our standard.
+
+To get prettier help you make the required changes, you can run:
+
+> npx prettier --write .
+
+This command will format the code accordingly.
+
+## Git Pre-commit
+
+When making a commit, pre-commit will run these commands:
+
+> npm run test
+> npm run eslint
+> npm run prettier
+
+This way, we have a way to make sure that our code complies with our standard before making a commit.
