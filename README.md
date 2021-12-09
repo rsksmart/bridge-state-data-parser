@@ -51,6 +51,8 @@ This will check and show if the code complies with our standard.
 To get eslint help you make the required changes, you can run:
 
 > npx eslint . --fix
+> or
+> npm run eslintFix
 
 This command will try to fix the errors, leaving the once it cannot fix to the developer to solve manually.
 
@@ -63,8 +65,18 @@ This will check and show if the code complies with our standard.
 To get prettier help you make the required changes, you can run:
 
 > npx prettier --write .
+> or
+> npm run prettierFix
 
 This command will format the code accordingly.
+
+If you need to run both prettier and eslint checks, run:
+
+> npm run formatCheck
+
+If you need to run both prettier and eslint fixes, run:
+
+> npm run formatFix
 
 ## Git Pre-commit
 
@@ -75,3 +87,7 @@ When making a commit, pre-commit will run these commands:
 > npm run prettier
 
 This way, we have a way to make sure that our code complies with our standard before making a commit.
+
+If it's absolutely necessary to make a commit that does not pass the pre-commit check, then you can use the `--no-verify` flag while making the commit:
+
+> git commit --no-verify -m "<the commit message>"

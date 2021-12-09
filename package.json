@@ -6,7 +6,11 @@
   "scripts": {
     "test": "nyc mocha",
     "eslint": "npx eslint .",
-    "prettier": "npx prettier --check ."
+    "prettier": "npx prettier --check .",
+    "eslintFix": "npx eslint . --fix",
+    "prettierFix": "npx prettier --write .",
+    "formatFix": "npm run prettierFix && npm run eslintFix",
+    "formatCheck": "npm run prettier && npm run eslint"
   },
   "pre-commit": [
     "test",
