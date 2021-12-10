@@ -2,15 +2,22 @@ module.exports = {
   env: {
     browser: true,
     commonjs: true,
-    es2021: true,
-    jest: true,
+    es6: true,
+    node: true,
+    mocha: true,
   },
-  extends: ["standard", "prettier"],
+  plugins: ["chai-friendly"],
+  extends: [
+    "eslint:recommended",
+    "airbnb-base",
+    "prettier",
+    "plugin:chai-friendly/recommended",
+  ],
   parserOptions: {
-    ecmaVersion: 8,
+    ecmaVersion: 12,
   },
   rules: {
-    semi: ["error", "always"],
-    quotes: ["error", "double"],
+    radix: "off",
+    "no-plusplus": "off",
   },
 };

@@ -1,10 +1,12 @@
 const rewire = require("rewire");
+
+const bridgeStatus = rewire("../index");
+const { expect } = require("chai");
+
 const {
   encodedBridgeState,
   decodedBridgeState,
 } = require("./resources/bridge-state-test-data");
-const bridgeStatus = rewire("../index");
-const { expect } = require("chai");
 
 bridgeStatus.__set__({
   Bridge: {

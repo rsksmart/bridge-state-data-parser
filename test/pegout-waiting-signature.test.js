@@ -1,6 +1,6 @@
+const { expect } = require("chai");
 const pegoutWaitingSignaturesParser =
   require("../pegout-waiting-signature").parseRLPToPegoutWaitingSignatures;
-const { expect } = require("chai");
 
 const {
   encodedPegoutsWaitingSignatures,

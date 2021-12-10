@@ -1,6 +1,7 @@
 const ethUtils = require("ethereumjs-util");
+
 const RLP = ethUtils.rlp;
-const BN = ethUtils.BN;
+const { BN } = ethUtils;
 
 class PegoutWaitingConfirmation {
   constructor(btcRawTx, pegoutCreationBlockNumber, rskTxHash) {

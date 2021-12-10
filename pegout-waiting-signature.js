@@ -1,4 +1,5 @@
 const ethUtils = require("ethereumjs-util");
+
 const RLP = ethUtils.rlp;
 
 class PegoutWaitingSignature {

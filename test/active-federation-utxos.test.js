@@ -1,6 +1,6 @@
+const { expect } = require("chai");
 const activeFederationUtxosParser =
   require("../active-federation-utxos").parseRLPToActiveFederationUtxos;
-const { expect } = require("chai");
 const {
   encodedActiveFederationUtxos,
   decodedActiveFederationUtxos,

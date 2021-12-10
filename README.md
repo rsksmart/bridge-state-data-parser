@@ -42,53 +42,24 @@ We are using nyc code coverage, so when running the tests, nyc will create a cod
 
 ## Eslint and Prettier
 
-To run the eslint check, run:
+To run the eslint and prettier check, run:
 
-> npm run eslint
+> npm run lint
 
 This will check and show if the code complies with our standard.
 
-To get eslint help you make the required changes, you can run:
+To get eslint and prettier help you make the required changes, you can run:
 
-> npx eslint . --fix
-
-or
-
-> npm run eslintFix
+> npm run lint:fix
 
 This command will try to fix the errors, leaving the once it cannot fix to the developer to solve manually.
-
-To run the prettier check, fun:
-
-> npm run prettier
-
-This will check and show if the code complies with our standard.
-
-To get prettier help you make the required changes, you can run:
-
-> npx prettier --write .
-
-or
-
-> npm run prettierFix
-
-This command will format the code accordingly.
-
-If you need to run both prettier and eslint checks, run:
-
-> npm run formatCheck
-
-If you need to run both prettier and eslint fixes, run:
-
-> npm run formatFix
 
 ## Git Pre-commit
 
 When making a commit, pre-commit will run these commands:
 
 > npm run test
-> npm run eslint
-> npm run prettier
+> npm run lint
 
 This way, we have a way to make sure that our code complies with our standard before making a commit.
 

@@ -1,5 +1,6 @@
 const Bridge = require("@rsksmart/rsk-precompiled-abis").bridge;
 const ethUtils = require("ethereumjs-util");
+
 const RLP = ethUtils.rlp;
 
 const activeFederationUtxosParser =

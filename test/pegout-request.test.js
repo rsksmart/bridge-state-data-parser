@@ -1,6 +1,6 @@
+const { expect } = require("chai");
 const pegoutRequestsParser =
   require("../pegout-request").parseRLPToPegoutRequests;
-const { expect } = require("chai");
 
 const {
   encodedPegoutRequest,
