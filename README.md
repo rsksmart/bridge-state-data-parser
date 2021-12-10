@@ -12,17 +12,23 @@ Library to get the current bridge state. This include available UTXOs, pegout re
 
 ### Install dependencies
 
-```
-npm install
-```
+> npm install
 
 ### Run Project
 
-```
-node sample/sample.js mainnet/testnet or pass a network url for regtest... http://localhost:4444
-```
+To see the current status of pegouts on the provided network, run:
 
-to see the current status of pegouts on the provided network.
+For mainnet:
+
+> node sample/sample.js mainnet
+
+For testnet:
+
+> node sample/sample.js testnet
+
+Or pass a network url for regtest:
+
+> node sample/sample.js http://localhost:4444
 
 ## Test
 
@@ -32,7 +38,7 @@ To run test with coverage, run:
 
 To run tests on a specific file, fun:
 
-> npm test <testfilepath>
+> npm test test/testfilepath
 
 Example:
 
@@ -59,10 +65,11 @@ This command will try to fix the errors, leaving the once it cannot fix to the d
 When making a commit, pre-commit will run these commands:
 
 > npm run test
+
 > npm run lint
 
 This way, we have a way to make sure that our code complies with our standard before making a commit.
 
 If it's absolutely necessary to make a commit that does not pass the pre-commit check, then you can use the `--no-verify` flag while making the commit:
 
-> git commit --no-verify -m "<the commit message>"
+> git commit --no-verify -m "the commit message"
