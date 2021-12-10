@@ -23,4 +23,4 @@ jobs:
         run: npm test
 
       - name: Eslint check
-        run: npm run eslint
+        run: npm run lint
