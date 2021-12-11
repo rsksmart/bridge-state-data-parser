@@ -59,17 +59,3 @@ To get eslint and prettier help you make the required changes, you can run:
 > npm run lint:fix
 
 This command will try to fix the errors, leaving the once it cannot fix to the developer to solve manually.
-
-## Git Pre-commit
-
-When making a commit, pre-commit will run these commands:
-
-> npm run test
-
-> npm run lint
-
-This way, we have a way to make sure that our code complies with our standard before making a commit.
-
-If it's absolutely necessary to make a commit that does not pass the pre-commit check, then you can use the `--no-verify` flag while making the commit:
-
-> git commit --no-verify -m "the commit message"
