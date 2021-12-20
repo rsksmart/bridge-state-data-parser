@@ -11,15 +11,24 @@ Library to get the current bridge state. This include available UTXOs, pegout re
 ## Usage
 
 ### Install dependencies
-```
-npm install
-```
+
+> npm install
 
 ### Run Project
-```
-node sample/sample.js mainnet/testnet or pass a network url for regtest... http://localhost:4444
-```
-to see the current status of pegouts on the provided network.
+
+To see the current status of pegouts on the provided network, run:
+
+For mainnet:
+
+> node sample/sample.js mainnet
+
+For testnet:
+
+> node sample/sample.js testnet
+
+Or pass a network url for regtest:
+
+> node sample/sample.js http://localhost:4444
 
 ## Test
 
@@ -29,8 +38,24 @@ To run test with coverage, run:
 
 To run tests on a specific file, fun:
 
-> npm test <testfilepath>
+> npm test test/testfilepath
 
 Example:
 
 > npm test test/pegout-waiting-confirmation.test.js
+
+We are using nyc code coverage, so when running the tests, nyc will create a code coverage report and print it in the console.
+
+## Eslint and Prettier
+
+To run the eslint and prettier check, run:
+
+> npm run lint
+
+This will check and show if the code complies with our standard.
+
+To get eslint and prettier help you make the required changes, you can run:
+
+> npm run lint:fix
+
+This command will try to fix the errors, leaving the once it cannot fix to the developer to solve manually.

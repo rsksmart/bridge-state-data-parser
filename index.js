@@ -1,5 +1,6 @@
 const Bridge = require('@rsksmart/rsk-precompiled-abis').bridge;
 const ethUtils = require('ethereumjs-util');
+
 const RLP = ethUtils.rlp;
 
 const activeFederationUtxosParser = require('./active-federation-utxos').parseRLPToActiveFederationUtxos;
@@ -16,7 +17,7 @@ class BridgeStatus {
     }
 }
 
-module.exports = async (web3) => {
+module.exports = async web3 => {
     const bridge = Bridge.build(web3);
     const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
@@ -26,5 +27,5 @@ module.exports = async (web3) => {
     const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3]);
     const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
 
-    return new BridgeStatus(activeFederationUtxos, pegoutWaitingSignatures, pegoutRequests, pegoutWaitingConfirmations)
+    return new BridgeStatus(activeFederationUtxos, pegoutWaitingSignatures, pegoutRequests, pegoutWaitingConfirmations);
 };
