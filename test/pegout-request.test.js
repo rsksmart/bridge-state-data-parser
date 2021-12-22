@@ -1,11 +1,11 @@
 const { expect } = require('chai');
 const pegoutRequestsParser = require('../pegout-request').parseRLPToPegoutRequests;
 
-const { 
-    encodedPegoutRequest, 
-    decodedPegoutRequest, 
-    encodedInvalidPegoutRequestDataLength, 
-    encodedInvalidPegoutRequestFieldsLength 
+const {
+    encodedPegoutRequest,
+    decodedPegoutRequest,
+    encodedInvalidPegoutRequestDataLength,
+    encodedInvalidPegoutRequestFieldsLength
 } = require('./resources/pegout-request-test-data');
 
 describe('Pegout request parser', () => {

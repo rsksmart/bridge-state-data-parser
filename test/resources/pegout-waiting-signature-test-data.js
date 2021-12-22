@@ -14,15 +14,13 @@ const decodedPegoutsWaitingSignatures = [
     }
 ];
 
-const encodedPegoutsWaitingSignaturesInvalidFieldsLength =
-    'c782ccdd81bb81bb';
+const encodedPegoutsWaitingSignaturesInvalidFieldsLength = 'c782ccdd81bb81bb';
 
-const encodedPegoutsWaitingSignaturesInvalidDataLength =
-    'dc84ccddccdd84ccddccdd82bbbb82bbbb82bbbb82bbbb82aaaa82aaaa';
+const encodedPegoutsWaitingSignaturesInvalidDataLength = 'dc84ccddccdd84ccddccdd82bbbb82bbbb82bbbb82bbbb82aaaa82aaaa';
 
 module.exports = {
     encodedPegoutsWaitingSignatures,
     decodedPegoutsWaitingSignatures,
     encodedPegoutsWaitingSignaturesInvalidFieldsLength,
-    encodedPegoutsWaitingSignaturesInvalidDataLength,
+    encodedPegoutsWaitingSignaturesInvalidDataLength
 };
