@@ -29,7 +29,14 @@ const decodedPegoutRequest = [
     }
 ];
 
+const encodedInvalidPegoutRequestDataLength =
+    'f89684ccddccdd0aa0000000000000000000000000000000000000000000000000000000000000000082bbbb32a0000000000000000000000000000000000000000000000000000000000000000082bbbb14a0000000000000000000000000000000000000000000000000000000000000000082aaaa1ea00000000000000000000000000000000000000000000000000000000000000000';
+
+const encodedInvalidPegoutRequestFieldsLength = 'd284ccddccdd0a82bbbb3282bbbb1482aaaa1e';
+
 module.exports = {
     encodedPegoutRequest,
-    decodedPegoutRequest
+    decodedPegoutRequest,
+    encodedInvalidPegoutRequestDataLength,
+    encodedInvalidPegoutRequestFieldsLength
 };

@@ -14,7 +14,13 @@ const decodedPegoutsWaitingSignatures = [
     }
 ];
 
+const encodedPegoutsWaitingSignaturesInvalidFieldsLength = 'c782ccdd81bb81bb';
+
+const encodedPegoutsWaitingSignaturesInvalidDataLength = 'dc84ccddccdd84ccddccdd82bbbb82bbbb82bbbb82bbbb82aaaa82aaaa';
+
 module.exports = {
     encodedPegoutsWaitingSignatures,
-    decodedPegoutsWaitingSignatures
+    decodedPegoutsWaitingSignatures,
+    encodedPegoutsWaitingSignaturesInvalidFieldsLength,
+    encodedPegoutsWaitingSignaturesInvalidDataLength
 };

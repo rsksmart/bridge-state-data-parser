@@ -3,7 +3,9 @@ const pegoutWaitingSignaturesParser = require('../pegout-waiting-signature').par
 
 const {
     encodedPegoutsWaitingSignatures,
-    decodedPegoutsWaitingSignatures
+    decodedPegoutsWaitingSignatures,
+    encodedPegoutsWaitingSignaturesInvalidFieldsLength,
+    encodedPegoutsWaitingSignaturesInvalidDataLength
 } = require('./resources/pegout-waiting-signature-test-data');
 
 describe('Pegout waiting signatures parser', () => {
@@ -15,6 +17,22 @@ describe('Pegout waiting signatures parser', () => {
 
     it('should return an empty array when provided an empty Buffer', () => {
         const result = pegoutWaitingSignaturesParser(Buffer.from(''));
+        expect(Array.isArray(result)).to.be.true;
+        expect(result.length).to.equal(0);
+    });
+
+    it('should return an empty array when an invalid input is provided (wrong fields length)', () => {
+        const result = pegoutWaitingSignaturesParser(
+            Buffer.from(encodedPegoutsWaitingSignaturesInvalidFieldsLength, 'hex')
+        );
+        expect(Array.isArray(result)).to.be.true;
+        expect(result.length).to.equal(0);
+    });
+
+    it('should return an empty array when an invalid input is provided (wrong data length)', () => {
+        const result = pegoutWaitingSignaturesParser(
+            Buffer.from(encodedPegoutsWaitingSignaturesInvalidDataLength, 'hex')
+        );
         expect(Array.isArray(result)).to.be.true;
         expect(result.length).to.equal(0);
     });

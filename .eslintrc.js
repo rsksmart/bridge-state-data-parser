@@ -17,7 +17,8 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
-    radix: "off",
+    "radix": "off",
     "no-plusplus": "off",
+    "curly": "error",
   },
 };
