@@ -28,8 +28,9 @@ const parseRLPToPegoutRequests = rlp => {
 
         if (
             !validatePegoutRequestBufferFields(destinationAddressHash160Buffer, amountInSatoshisBuffer, rskTxHashBuffer)
-        )
+        ) {
             return pegoutRequests;
+        }
 
         const destinationAddressHash160 = Buffer.from(destinationAddressHash160Buffer, 'hex').toString('hex');
         const amountInSatoshis = new BN(amountInSatoshisBuffer).toString();
