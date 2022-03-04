@@ -8,13 +8,15 @@ const bridgeStatus = require('../index');
         const web3 = new Web3(network);
         const bridgeStatusResult = await bridgeStatus(web3);
         /* eslint no-console: "off" */
-        console.log("Bridge status");
-        console.log("-------------");
+        console.log('Bridge status');
+        console.log('-------------');
         console.log(`Active federation UTXOs (${bridgeStatusResult.activeFederationUtxos.length})`);
         console.log(bridgeStatusResult.activeFederationUtxos);
         console.log(`Peg-out requests (${bridgeStatusResult.pegoutRequests.length})`);
         console.log(bridgeStatusResult.pegoutRequests);
-        console.log(`Peg-outs waiting for confirmations  (${bridgeStatusResult.pegoutsWaitingForConfirmations.length})`);
+        console.log(
+            `Peg-outs waiting for confirmations  (${bridgeStatusResult.pegoutsWaitingForConfirmations.length})`
+        );
         console.log(bridgeStatusResult.pegoutsWaitingForConfirmations);
         console.log(`Peg-outs waiting for signatures (${bridgeStatusResult.pegoutsWaitingForSignatures.length})`);
         console.log(bridgeStatusResult.pegoutsWaitingForSignatures);
