@@ -9,11 +9,11 @@ const pegoutRequestsParser = require('./pegout-request').parseRLPToPegoutRequest
 const pegoutWaitingConfirmationsParser = require('./pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
 
 class BridgeStatus {
-    constructor(activeFederationUtxos, waitingSignatures, pegoutRequests, waitingConfirmations) {
+    constructor(activeFederationUtxos, pegoutRequests, waitingConfirmations, waitingSignatures) {
         this.activeFederationUtxos = activeFederationUtxos;
-        this.pegoutsWaitingForSignatures = waitingSignatures;
         this.pegoutRequests = pegoutRequests;
         this.pegoutsWaitingForConfirmations = waitingConfirmations;
+        this.pegoutsWaitingForSignatures = waitingSignatures;
     }
 }
 
@@ -27,5 +27,5 @@ module.exports = async web3 => {
     const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3]);
     const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
 
-    return new BridgeStatus(activeFederationUtxos, pegoutWaitingSignatures, pegoutRequests, pegoutWaitingConfirmations);
+    return new BridgeStatus(activeFederationUtxos, pegoutRequests, pegoutWaitingConfirmations, pegoutWaitingSignatures);
 };

@@ -194,7 +194,6 @@ const decodedBridgeState = {
             valueInSatoshis: 6000000
         }
     ],
-    pegoutsWaitingForSignatures: [],
     pegoutRequests: [
         {
             destinationAddressHash160: 'cab5925c59a9a413f8d443000abcc5640bdf0675',
@@ -312,7 +311,8 @@ const decodedBridgeState = {
             rskTxHash: 'b5533973ca3f33b8f9093e26923d05208af4bab6e0c2daa7048a8afa0c4252b9'
         }
     ],
-    pegoutsWaitingForConfirmations: []
+    pegoutsWaitingForConfirmations: [],
+    pegoutsWaitingForSignatures: []
 };
 
 module.exports = {
