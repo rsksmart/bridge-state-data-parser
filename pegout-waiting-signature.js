@@ -21,13 +21,13 @@ const parseRLPToPegoutWaitingSignatures = rlpData => {
 
     for (let i = 0; i < rlpRskTxsWaitingForSignatures.length / 2; i++) {
         const rskTxHashBuffer = rlpRskTxsWaitingForSignatures[i * 2];
-        const amountInSatoshisBuffer = rlpRskTxsWaitingForSignatures[i * 2 + 1];
-        if (!validatePegoutWaitingSignatureBufferFields(rskTxHashBuffer, amountInSatoshisBuffer)) {
+        const btcRawTxBuffer = rlpRskTxsWaitingForSignatures[i * 2 + 1];
+        if (!validatePegoutWaitingSignatureBufferFields(rskTxHashBuffer, btcRawTxBuffer)) {
             return rskTxsWaitingForSignatures;
         }
 
         const rskTxHash = rskTxHashBuffer.toString('hex');
-        const btcTransactionSerialized = amountInSatoshisBuffer.toString('hex');
+        const btcTransactionSerialized = btcRawTxBuffer.toString('hex');
 
         rskTxsWaitingForSignatures.push(new PegoutWaitingSignature(rskTxHash, btcTransactionSerialized));
     }
