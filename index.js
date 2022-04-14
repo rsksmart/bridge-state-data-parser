@@ -7,10 +7,17 @@ const activeFederationUtxosParser = require('./active-federation-utxos').parseRL
 const pegoutWaitingSignaturesParser = require('./pegout-waiting-signature').parseRLPToPegoutWaitingSignatures;
 const pegoutRequestsParser = require('./pegout-request').parseRLPToPegoutRequests;
 const pegoutWaitingConfirmationsParser = require('./pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
-const nextPegoutCreationBlockNumberParser = require('./next-pegout-creation-block-number').parseRLPToNextPegoutCreationBlockNumber;
+const nextPegoutCreationBlockNumberParser =
+    require('./next-pegout-creation-block-number').parseRLPToNextPegoutCreationBlockNumber;
 
 class BridgeStatus {
-    constructor(activeFederationUtxos, pegoutRequests, waitingConfirmations, waitingSignatures, nextPegoutCreationBlockNumber) {
+    constructor(
+        activeFederationUtxos,
+        pegoutRequests,
+        waitingConfirmations,
+        waitingSignatures,
+        nextPegoutCreationBlockNumber
+    ) {
         this.activeFederationUtxos = activeFederationUtxos;
         this.pegoutRequests = pegoutRequests;
         this.pegoutsWaitingForConfirmations = waitingConfirmations;
@@ -30,5 +37,11 @@ module.exports = async web3 => {
     const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
     const nextPegoutCreationBlockNumber = nextPegoutCreationBlockNumberParser(decodedListOfStates[5]);
 
-    return new BridgeStatus(activeFederationUtxos, pegoutRequests, pegoutWaitingConfirmations, pegoutWaitingSignatures, nextPegoutCreationBlockNumber);
+    return new BridgeStatus(
+        activeFederationUtxos,
+        pegoutRequests,
+        pegoutWaitingConfirmations,
+        pegoutWaitingSignatures,
+        nextPegoutCreationBlockNumber
+    );
 };
