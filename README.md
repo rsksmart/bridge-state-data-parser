@@ -6,7 +6,7 @@ This is a beta version until audited by the security team. Any comments or sugge
 
 # bridge-state-data-parser
 
-Library to get the current bridge state. This include available UTXOs, pegout requests waiting to be processed, pegout transactions waiting for signatures and pegout transactions waiting for block confirmations to be signed and broadcasted.
+Library to get the current bridge state. This include available UTXOs, pegout requests waiting to be processed, pegout transactions waiting for signatures, pegout transactions waiting for block confirmations to be signed and broadcasted and also the next pegout creation block number.
 
 ## Usage
 

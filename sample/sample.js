@@ -20,6 +20,7 @@ const bridgeStatus = require('../index');
         console.log(bridgeStatusResult.pegoutsWaitingForConfirmations);
         console.log(`Peg-outs waiting for signatures (${bridgeStatusResult.pegoutsWaitingForSignatures.length})`);
         console.log(bridgeStatusResult.pegoutsWaitingForSignatures);
+        console.log(`Next Pegout Creation Block Number: ${bridgeStatusResult.nextPegoutCreationBlockNumber}`);
     } catch (e) {
         console.log(e);
     }
