@@ -1,11 +1,11 @@
 const rewire = require('rewire');
 
-const bridgeStatus = rewire('../index');
+const bridgeStateModule = rewire('../index');
 const { expect } = require('chai');
 
 const { encodedBridgeState, decodedBridgeState } = require('./resources/bridge-state-test-data');
 
-bridgeStatus.__set__({
+bridgeStateModule.__set__({
     Bridge: {
         build() {
             return {
@@ -21,9 +21,9 @@ bridgeStatus.__set__({
     }
 });
 
-describe('bridgeStatus', () => {
-    it('should return the bridge status', async () => {
-        const bridgeStatusResult = await bridgeStatus(null);
-        expect(bridgeStatusResult).to.deep.equal(decodedBridgeState);
+describe('bridgeState', () => {
+    it('should return the bridge state', async () => {
+        const bridgeStateResult = await bridgeStateModule.getBridgeState(null);
+        expect(bridgeStateResult).to.deep.equal(decodedBridgeState);
     });
 });
