@@ -10,7 +10,7 @@ const pegoutWaitingConfirmationsParser = require('./pegout-waiting-confirmation'
 const nextPegoutCreationBlockNumberParser =
     require('./next-pegout-creation-block-number').parseRLPToNextPegoutCreationBlockNumber;
 
-class BridgeStatus {
+class BridgeState {
     constructor(
         activeFederationUtxos,
         pegoutRequests,
@@ -26,7 +26,7 @@ class BridgeStatus {
     }
 }
 
-module.exports = async web3 => {
+module.exports.getBridgeState = async web3 => {
     const bridge = Bridge.build(web3);
     const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
@@ -37,7 +37,7 @@ module.exports = async web3 => {
     const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
     const nextPegoutCreationBlockNumber = nextPegoutCreationBlockNumberParser(decodedListOfStates[5]);
 
-    return new BridgeStatus(
+    return new BridgeState(
         activeFederationUtxos,
         pegoutRequests,
         pegoutWaitingConfirmations,
