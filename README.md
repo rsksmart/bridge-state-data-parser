@@ -58,4 +58,4 @@ To get eslint and prettier help you make the required changes, you can run:
 
 > npm run lint:fix
 
-This command will try to fix the errors, leaving the once it cannot fix to the developer to solve manually.
+This command will try to fix the errors, leaving the ones it cannot fix to the developer to solve manually.
