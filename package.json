@@ -1,7 +1,7 @@
 {
-  "name": "bridge-state-data-parser",
-  "version": "0.1.4-beta",
-  "description": "",
+  "name": "@rsksmart/bridge-state-data-parser",
+  "version": "1.0.0",
+  "description": "Utility to get the RSK Powpeg current bridge state",
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout 10000",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rsksmart/bridge-state-data-parser.git"
+    "url": "https://github.com/rsksmart/bridge-state-data-parser.git"
   },
   "keywords": [],
   "author": "",
