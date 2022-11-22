@@ -10,6 +10,7 @@ const { getBridgeState } = require('../index');
         /* eslint no-console: "off" */
         console.log('Bridge state');
         console.log('-------------');
+        console.log(`UTXOs count: ${bridgeStateResult.activeFederationUtxos.length}`);
         console.log(`Active federation UTXOs (${bridgeStateResult.activeFederationUtxos.length})`);
         console.log(bridgeStateResult.activeFederationUtxos);
         console.log(`Peg-out requests (${bridgeStateResult.pegoutRequests.length})`);

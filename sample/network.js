@@ -1,6 +1,7 @@
 const NETWORKS = {
     mainnet: 'https://public-node.rsk.co/',
-    testnet: 'https://public-node.testnet.rsk.co/'
+    testnet: 'https://public-node.testnet.rsk.co/',
+    local: 'http://localhost:4450'
 };
 
 module.exports = network => {

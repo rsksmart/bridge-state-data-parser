@@ -22,6 +22,10 @@ For testnet:
 
 > node sample/sample.js testnet
 
+For local:
+
+> node sample/sample.js local
+
 Or pass a network url for regtest:
 
 > node sample/sample.js http://localhost:4444
