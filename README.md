@@ -1,7 +1,6 @@
 ![Github CI/CD](https://github.com/rsksmart/bridge-state-data-parser/actions/workflows/workflow.yml/badge.svg)
 [![CodeQL](https://github.com/rsksmart/bridge-state-data-parser/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/bridge-state-data-parser/actions?query=workflow%3ACodeQL)
 
-
 # bridge-state-data-parser
 
 Library to get the current bridge state. This include available UTXOs, pegout requests waiting to be processed, pegout transactions waiting for signatures, pegout transactions waiting for block confirmations to be signed and broadcasted and also the next pegout creation block number.
