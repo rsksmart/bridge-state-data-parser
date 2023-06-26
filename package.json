@@ -1,6 +1,6 @@
 {
   "name": "@rsksmart/bridge-state-data-parser",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Utility to get the RSK Powpeg current bridge state",
   "main": "index.js",
   "scripts": {
