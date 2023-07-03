@@ -17,7 +17,6 @@ const btcAddressFromPublicKeyHash = (pubKeyHash, network) =>
 const formatBtcDestinationAddressToBase58 = (pegoutRequests, network) =>
     pegoutRequests.map(pegout => {
         pegout.destinationAddressBase58 = btcAddressFromPublicKeyHash(pegout.destinationAddressHash160, network);
-        delete pegout.destinationAddressHash160;
         return pegout;
     });
 
