@@ -20,5 +20,7 @@ module.exports = {
     "radix": "off",
     "no-plusplus": "off",
     "curly": "error",
+    "arrow-body-style": ["error", "as-needed"],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
   },
 };
