@@ -26,10 +26,13 @@ class BridgeState {
     }
 }
 
-module.exports.getBridgeState = async web3 => {
+// TODO: add tests for new parameter
+module.exports.getBridgeState = async (web3, defaultBlock = 'latest') => {
     const bridge = Bridge.build(web3);
-    const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
-    const decodedListOfStates = RLP.decode(bridgeStateEncoded);
+    bridge.defaultBlock = defaultBlock;
+    const encodedBridgeState = await bridge.methods.getStateForDebugging().call();
+
+    const decodedListOfStates = RLP.decode(encodedBridgeState);
 
     const activeFederationUtxos = activeFederationUtxosParser(decodedListOfStates[1]);
     const pegoutWaitingSignatures = pegoutWaitingSignaturesParser(decodedListOfStates[2]);

@@ -31,4 +31,4 @@ export interface BridgeState {
     nextPegoutCreationBlockNumber: number;
 }
 
-export function getBridgeState(web3: Web3): Promise<BridgeState>;
+export function getBridgeState(web3: Web3, defaultBlock?: number | string): Promise<BridgeState>;
