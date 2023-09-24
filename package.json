@@ -18,6 +18,7 @@
   "dependencies": {
     "@rsksmart/rsk-precompiled-abis": "^5.0.0-FINGERROOT",
     "ethereumjs-util": "^7.0.10",
+    "rlp": "^3.0.0",
     "web3": "^1.5.2"
   },
   "bugs": {

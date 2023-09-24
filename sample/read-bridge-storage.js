@@ -1,5 +1,6 @@
 const Web3 = require('web3');
 const networkParser = require('./network');
+const RLP = require('rlp');
 
 const BRIDGE_ADDRESS = '0x0000000000000000000000000000000001000006';
 
@@ -20,6 +21,11 @@ const BRIDGE_ADDRESS = '0x0000000000000000000000000000000001000006';
         const storageValue = await web3.eth.getStorageAt(BRIDGE_ADDRESS, storagePosition);
 
         console.log(`Storage value for key '${storageKey}' (RLP encoded): ${storageValue}`);
+
+        const bytesForRLPDecoding = '0x' + storageValue.replaceAll(/^0x0+/g, '');
+
+        console.log('RLP decoded hex:', '0x' + Buffer.from(RLP.decode(bytesForRLPDecoding)).toString('hex'));
+
     } catch (e) {
         console.log(e);
     }
