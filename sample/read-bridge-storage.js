@@ -1,5 +1,6 @@
 const Web3 = require('web3');
-const RLP = require('rlp');
+const ethUtils = require('ethereumjs-util');
+const RLP = ethUtils.rlp;
 const networkParser = require('./network');
 
 const BRIDGE_ADDRESS = '0x0000000000000000000000000000000001000006';
