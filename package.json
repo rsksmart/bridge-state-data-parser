@@ -18,7 +18,7 @@
   "dependencies": {
     "@rsksmart/rsk-precompiled-abis": "^5.0.0-FINGERROOT",
     "ethereumjs-util": "^7.0.10",
-    "web3": "^1.5.2"
+    "web3": "^4.0.2"
   },
   "bugs": {
     "url": "https://github.com/rsksmart/bridge-state-data-parser/issues"
