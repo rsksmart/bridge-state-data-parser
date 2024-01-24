@@ -1,4 +1,3 @@
-const Web3 = require('web3');
 const bitcoin = require('bitcoinjs-lib');
 const networkParser = require('./network');
 const { getBridgeState } = require('../index');
@@ -22,9 +21,8 @@ const formatBtcDestinationAddressToBase58 = (pegoutRequests, network) =>
 
 (async () => {
     try {
-        const network = networkParser(process.argv[2]);
-        const web3 = new Web3(network);
-        const bridgeStateResult = await getBridgeState(web3);
+        const host = networkParser(process.argv[2]);
+        const bridgeStateResult = await getBridgeState(host);
         /* eslint no-console: "off" */
         console.log('Bridge state');
         console.log('-------------');
