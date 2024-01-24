@@ -6,19 +6,7 @@ const { expect } = require('chai');
 const { encodedBridgeState, decodedBridgeState } = require('./resources/bridge-state-test-data');
 
 bridgeStateModule.__set__({
-    Bridge: {
-        build() {
-            return {
-                methods: {
-                    getStateForDebugging() {
-                        return {
-                            call: () => encodedBridgeState
-                        };
-                    }
-                }
-            };
-        }
-    }
+    call: () => encodedBridgeState
 });
 
 describe('bridgeState', () => {
