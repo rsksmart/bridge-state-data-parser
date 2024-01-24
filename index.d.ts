@@ -1,5 +1,3 @@
-import Web3 from 'web3';
-
 export interface PegoutWaitingConfirmation {
     btcRawTx: string;
     pegoutCreationBlockNumber: string;
@@ -31,4 +29,4 @@ export interface BridgeState {
     nextPegoutCreationBlockNumber: number;
 }
 
-export function getBridgeState(web3: Web3): Promise<BridgeState>;
+export function getBridgeState(host: string): Promise<BridgeState>;
