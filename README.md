@@ -57,4 +57,4 @@ To get eslint and prettier help you make the required changes, you can run:
 
 This command will try to fix the errors, leaving the ones it cannot fix to the developer to solve manually.
 
-For any comments or suggestions, feel free to contribute or reach out at our [open slack](https://developers.rsk.co/slack).
+For any comments or suggestions, feel free to contribute or reach out at our [Discord server](https://discord.gg/rootstock).
