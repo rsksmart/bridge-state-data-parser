@@ -33,12 +33,12 @@ async function call(host, rpcMethod, rpcParams = []) {
         const data = await response.json();
 
         if ('error' in data) {
-            return undefined;
+            return null;
         }
 
         return data.result;
     } catch (e) {
-        return undefined;
+        return null;
     }
 }
 
@@ -52,8 +52,8 @@ async function getStateForDebugging(host, blockToSearch) {
         from: '0x0000000000000000000000000000000000000000'
     };
     const callToBridge = await call(host, 'eth_call', [callArguments, blockToSearch]);
-    if (callToBridge === undefined) {
-        return undefined;
+    if (!callToBridge) {
+        return null;
     }
     const decodedCallToBridge = web3abi.decodeParameter(outputType, callToBridge);
     return decodedCallToBridge;
