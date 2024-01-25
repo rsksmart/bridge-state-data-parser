@@ -29,4 +29,4 @@ export interface BridgeState {
     nextPegoutCreationBlockNumber: number;
 }
 
-export function getBridgeState(host: string): Promise<BridgeState>;
+export function getBridgeState(host: string, blockToSearch?: string | number): Promise<BridgeState>;

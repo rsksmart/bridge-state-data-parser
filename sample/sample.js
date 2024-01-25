@@ -22,7 +22,7 @@ const formatBtcDestinationAddressToBase58 = (pegoutRequests, network) =>
 (async () => {
     try {
         const host = networkParser(process.argv[2]);
-        const bridgeStateResult = await getBridgeState(host);
+        const bridgeStateResult = await getBridgeState(host, 6025481);
         /* eslint no-console: "off" */
         console.log('Bridge state');
         console.log('-------------');

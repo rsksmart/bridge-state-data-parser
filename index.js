@@ -42,7 +42,7 @@ async function call(host, rpcMethod, rpcParams = []) {
     }
 }
 
-async function getStateForDebugging(host) {
+async function getStateForDebugging(host, blockToSearch) {
     const getMethodABI = Bridge.abi.find(m => m.name === GET_STATE_FOR_DEBUGGING_METHOD_NAME);
     const outputType = getMethodABI.outputs[0].type;
     const getMethodEncodedCall = web3abi.encodeFunctionCall(getMethodABI);
@@ -51,7 +51,7 @@ async function getStateForDebugging(host) {
         to: '0x0000000000000000000000000000000001000006',
         from: '0x0000000000000000000000000000000000000000'
     };
-    const callToBridge = await call(host, 'eth_call', [callArguments, 'latest']);
+    const callToBridge = await call(host, 'eth_call', [callArguments, blockToSearch]);
     if (callToBridge === undefined) {
         return undefined;
     }
@@ -75,8 +75,8 @@ class BridgeState {
     }
 }
 
-module.exports.getBridgeState = async host => {
-    const bridgeStateEncoded = await getStateForDebugging(host);
+module.exports.getBridgeState = async (host, blockToSearch = 'latest') => {
+    const bridgeStateEncoded = await getStateForDebugging(host, blockToSearch);
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
     const activeFederationUtxos = activeFederationUtxosParser(decodedListOfStates[1]);
