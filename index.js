@@ -1,5 +1,6 @@
 const Bridge = require('@rsksmart/rsk-precompiled-abis').bridge;
 const ethUtils = require('ethereumjs-util');
+const web3abi = require('web3-eth-abi');
 
 const RLP = ethUtils.rlp;
 
@@ -9,6 +10,54 @@ const pegoutRequestsParser = require('./pegout-request').parseRLPToPegoutRequest
 const pegoutWaitingConfirmationsParser = require('./pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
 const nextPegoutCreationBlockNumberParser =
     require('./next-pegout-creation-block-number').parseRLPToNextPegoutCreationBlockNumber;
+
+const GET_STATE_FOR_DEBUGGING_METHOD_NAME = 'getStateForDebugging';
+
+let requestId = 0;
+
+async function call(host, rpcMethod, rpcParams = []) {
+    const body = {
+        jsonrpc: '2.0',
+        id: `bridge-state-data-parser-${requestId++}`,
+        method: rpcMethod,
+        params: rpcParams
+    };
+
+    const response = await fetch(host, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+
+    try {
+        const data = await response.json();
+
+        if ('error' in data) {
+            return null;
+        }
+
+        return data.result;
+    } catch (e) {
+        return null;
+    }
+}
+
+async function getStateForDebugging(host, blockToSearch) {
+    const getMethodABI = Bridge.abi.find(m => m.name === GET_STATE_FOR_DEBUGGING_METHOD_NAME);
+    const outputType = getMethodABI.outputs[0].type;
+    const getMethodEncodedCall = web3abi.encodeFunctionCall(getMethodABI);
+    const callArguments = {
+        data: getMethodEncodedCall,
+        to: '0x0000000000000000000000000000000001000006',
+        from: '0x0000000000000000000000000000000000000000'
+    };
+    const callToBridge = await call(host, 'eth_call', [callArguments, blockToSearch]);
+    if (!callToBridge) {
+        return null;
+    }
+    const decodedCallToBridge = web3abi.decodeParameter(outputType, callToBridge);
+    return decodedCallToBridge;
+}
 
 class BridgeState {
     constructor(
@@ -26,9 +75,8 @@ class BridgeState {
     }
 }
 
-module.exports.getBridgeState = async web3 => {
-    const bridge = Bridge.build(web3);
-    const bridgeStateEncoded = await bridge.methods.getStateForDebugging().call();
+module.exports.getBridgeState = async (host, blockToSearch = 'latest') => {
+    const bridgeStateEncoded = await getStateForDebugging(host, blockToSearch);
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
     const activeFederationUtxos = activeFederationUtxosParser(decodedListOfStates[1]);

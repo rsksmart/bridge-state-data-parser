@@ -1,4 +1,4 @@
-const Web3 = require('web3');
+const { Web3 } = require('web3');
 const networkParser = require('./network');
 
 const BRIDGE_ADDRESS = '0x0000000000000000000000000000000001000006';
