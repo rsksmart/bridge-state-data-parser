@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@rsksmart/rsk-precompiled-abis": "^5.0.0-FINGERROOT",
+    "@rsksmart/rsk-precompiled-abis": "^6.0.0-ARROWHEAD",
     "ethereumjs-util": "^7.0.10",
     "web3": "^1.5.2"
   },
