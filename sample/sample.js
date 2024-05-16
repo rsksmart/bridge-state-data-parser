@@ -10,7 +10,7 @@ const { getBridgeState } = require('../index');
         console.log(`Bridge state in ${network}`);
         console.log('-----------------------');
         console.log(`Active federation UTXOs (${bridgeStateResult.activeFederationUtxos.length})`);
-        console.log(bridgeStateResult.activeFederationUtxos);
+        console.log(bridgeStateResult.activeFederationUtxos.sort((a, b) => a.btcTxHash.localeCompare(b.btcTxHash)));
         console.log(`Peg-out requests (${bridgeStateResult.pegoutRequests.length})`);
         console.log(bridgeStateResult.pegoutRequests);
         console.log(`Peg-outs waiting for confirmations  (${bridgeStateResult.pegoutsWaitingForConfirmations.length})`);
