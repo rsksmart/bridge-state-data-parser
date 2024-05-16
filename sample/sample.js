@@ -9,7 +9,7 @@ const printUtxosInformation = utxos => {
     console.log(`Active federation UTXOs (${utxos.length})`);
     console.log(utxos.sort((a, b) => a.btcTxHash.localeCompare(b.btcTxHash)));
     console.log(`Total: ${totalValueInBtc} BTC\n`);
-}
+};
 
 (async () => {
     try {
