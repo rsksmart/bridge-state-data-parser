@@ -3,11 +3,12 @@ const { getBridgeState } = require('../index');
 
 (async () => {
     try {
-        const host = networkParser(process.argv[2]);
+        const network = process.argv[2];
+        const host = networkParser(network);
         const bridgeStateResult = await getBridgeState(host);
         /* eslint no-console: "off" */
-        console.log('Bridge state');
-        console.log('-------------');
+        console.log(`Bridge state in ${network}`);
+        console.log('-----------------------');
         console.log(`Active federation UTXOs (${bridgeStateResult.activeFederationUtxos.length})`);
         console.log(bridgeStateResult.activeFederationUtxos);
         console.log(`Peg-out requests (${bridgeStateResult.pegoutRequests.length})`);
