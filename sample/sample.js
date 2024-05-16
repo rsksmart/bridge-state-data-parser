@@ -1,5 +1,15 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+const btcEthUnitConverter = require('@rsksmart/btc-eth-unit-converter');
 const networkParser = require('./network');
 const { getBridgeState } = require('../index');
+
+const printUtxosInformation = utxos => {
+    const totalValueInSatoshis = utxos.reduce((acc, utxo) => acc + utxo.valueInSatoshis, 0);
+    const totalValueInBtc = btcEthUnitConverter.satoshisToBtc(totalValueInSatoshis);
+    console.log(`Active federation UTXOs (${utxos.length})`);
+    console.log(utxos.sort((a, b) => a.btcTxHash.localeCompare(b.btcTxHash)));
+    console.log(`Total: ${totalValueInBtc} BTC\n`);
+}
 
 (async () => {
     try {
@@ -9,8 +19,7 @@ const { getBridgeState } = require('../index');
         /* eslint no-console: "off" */
         console.log(`Bridge state in ${network}`);
         console.log('-----------------------');
-        console.log(`Active federation UTXOs (${bridgeStateResult.activeFederationUtxos.length})`);
-        console.log(bridgeStateResult.activeFederationUtxos.sort((a, b) => a.btcTxHash.localeCompare(b.btcTxHash)));
+        printUtxosInformation(bridgeStateResult.activeFederationUtxos);
         console.log(`Peg-out requests (${bridgeStateResult.pegoutRequests.length})`);
         console.log(bridgeStateResult.pegoutRequests);
         console.log(`Peg-outs waiting for confirmations  (${bridgeStateResult.pegoutsWaitingForConfirmations.length})`);
