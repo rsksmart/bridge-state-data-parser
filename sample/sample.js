@@ -11,6 +11,14 @@ const printUtxosInformation = utxos => {
     console.log(`Total: ${totalValueInBtc} BTC\n`);
 };
 
+const printPegoutRequestsInformation = pegoutRequests => {
+    const totalValueInSatoshis = pegoutRequests.reduce((acc, request) => acc + Number(request.amountInSatoshis), 0);
+    const totalValueInBtc = btcEthUnitConverter.satoshisToBtc(totalValueInSatoshis);
+    console.log(`Peg-out requests (${pegoutRequests.length})`);
+    console.log(pegoutRequests);
+    console.log(`Total: ${totalValueInBtc} BTC\n`);
+};
+
 (async () => {
     try {
         const network = process.argv[2];
@@ -20,8 +28,7 @@ const printUtxosInformation = utxos => {
         console.log(`Bridge state in ${network}`);
         console.log('-----------------------');
         printUtxosInformation(bridgeStateResult.activeFederationUtxos);
-        console.log(`Peg-out requests (${bridgeStateResult.pegoutRequests.length})`);
-        console.log(bridgeStateResult.pegoutRequests);
+        printPegoutRequestsInformation(bridgeStateResult.pegoutRequests);
         console.log(`Peg-outs waiting for confirmations  (${bridgeStateResult.pegoutsWaitingForConfirmations.length})`);
         console.log(bridgeStateResult.pegoutsWaitingForConfirmations);
         console.log(`Peg-outs waiting for signatures (${bridgeStateResult.pegoutsWaitingForSignatures.length})`);
