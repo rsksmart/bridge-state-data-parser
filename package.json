@@ -1,7 +1,7 @@
 {
   "name": "@rsksmart/bridge-state-data-parser",
-  "version": "2.0.0",
-  "description": "Utility to get the RSK Powpeg current bridge state",
+  "version": "3.0.0",
+  "description": "Utility to get the RSK Powpeg Bridge state at any block",
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout 10000",

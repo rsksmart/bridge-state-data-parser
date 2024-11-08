@@ -42,7 +42,7 @@ async function call(host, rpcMethod, rpcParams = []) {
     }
 }
 
-async function getStateForDebugging(host, blockToSearch) {
+async function getStateForDebugging(host, atBlock) {
     const getMethodABI = Bridge.abi.find(m => m.name === GET_STATE_FOR_DEBUGGING_METHOD_NAME);
     const outputType = getMethodABI.outputs[0].type;
     const getMethodEncodedCall = web3abi.encodeFunctionCall(getMethodABI);
@@ -51,7 +51,7 @@ async function getStateForDebugging(host, blockToSearch) {
         to: '0x0000000000000000000000000000000001000006',
         from: '0x0000000000000000000000000000000000000000'
     };
-    const callToBridge = await call(host, 'eth_call', [callArguments, blockToSearch]);
+    const callToBridge = await call(host, 'eth_call', [callArguments, atBlock]);
     if (!callToBridge) {
         return null;
     }
@@ -75,13 +75,13 @@ class BridgeState {
     }
 }
 
-module.exports.getBridgeState = async (host, blockToSearch = 'latest') => {
-    const bridgeStateEncoded = await getStateForDebugging(host, blockToSearch);
+module.exports.getBridgeState = async (host, atBlock = 'latest', btcNetworkName = '') => {
+    const bridgeStateEncoded = await getStateForDebugging(host, atBlock);
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
     const activeFederationUtxos = activeFederationUtxosParser(decodedListOfStates[1]);
     const pegoutWaitingSignatures = pegoutWaitingSignaturesParser(decodedListOfStates[2]);
-    const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3]);
+    const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3], btcNetworkName);
     const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
     const nextPegoutCreationBlockNumber = nextPegoutCreationBlockNumberParser(decodedListOfStates[5]);
 

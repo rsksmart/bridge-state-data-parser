@@ -16,7 +16,7 @@ export interface Utxo {
 }
 
 export interface PegoutRequest {
-    destinationAddressHash160: string;
+    btcDestinationAddress: string;
     amountInSatoshis: string;
     rskTxHash: string;
 }
@@ -29,4 +29,4 @@ export interface BridgeState {
     nextPegoutCreationBlockNumber: number;
 }
 
-export function getBridgeState(host: string, blockToSearch?: string | number): Promise<BridgeState>;
+export function getBridgeState(host: string, atBlock?: string | number, btcNetworkName?: string): Promise<BridgeState>;
