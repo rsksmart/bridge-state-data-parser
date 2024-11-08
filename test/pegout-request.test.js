@@ -2,8 +2,10 @@ const { expect } = require('chai');
 const pegoutRequestsParser = require('../pegout-request').parseRLPToPegoutRequests;
 
 const {
+    decodedPegoutRequestWithBtcDestinationAddressAsHash160,
+    decodedPegoutRequestWithBtcDestinationAddressAsBase58Testnet,
+    decodedPegoutRequestWithBtcDestinationAddressAsBase58Mainnet,
     encodedPegoutRequest,
-    decodedPegoutRequest,
     encodedInvalidPegoutRequestDataLength,
     encodedInvalidPegoutRequestFieldsLength
 } = require('./resources/pegout-request-test-data');
@@ -37,8 +39,18 @@ describe('Pegout request parser', () => {
         expect(() => pegoutRequestsParser('invalid')).to.throw(Error, 'invalid remainder');
     });
 
-    it('should return utxos', () => {
+    it('should return pegout requests with btcDestinationAddress as HASH160', () => {
         const result = pegoutRequestsParser(Buffer.from(encodedPegoutRequest, 'hex'));
-        expect(result).to.deep.equal(decodedPegoutRequest);
+        expect(result).to.deep.equal(decodedPegoutRequestWithBtcDestinationAddressAsHash160);
+    });
+
+    it('should return pegout requests with btcDestinationAddress as base58 testnet', () => {
+        const result = pegoutRequestsParser(Buffer.from(encodedPegoutRequest, 'hex'), 'testnet');
+        expect(result).to.deep.equal(decodedPegoutRequestWithBtcDestinationAddressAsBase58Testnet);
+    });
+
+    it('should return pegout requests with btcDestinationAddress as base58 mainnet', () => {
+        const result = pegoutRequestsParser(Buffer.from(encodedPegoutRequest, 'hex'), 'mainnet');
+        expect(result).to.deep.equal(decodedPegoutRequestWithBtcDestinationAddressAsBase58Mainnet);
     });
 });

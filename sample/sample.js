@@ -19,13 +19,29 @@ const printPegoutRequestsInformation = pegoutRequests => {
     console.log(`Total: ${totalValueInBtc} BTC\n`);
 };
 
+const defaultParamsValues = {
+    rskNetworkOrHost: 'mainnet',
+    atBlock: 'latest',
+    btcNetworkName: ''
+};
+
+const getCommandLineParsedParams = () => {
+    const params = process.argv
+        .filter(param => param.startsWith('--'))
+        .reduce((paramsAccumulator, param) => {
+            const [key, value] = param.split('=');
+            return { ...paramsAccumulator, [key.slice(2)]: value };
+        }, defaultParamsValues);
+    return params;
+};
+
 (async () => {
     try {
-        const network = process.argv[2];
-        const host = networkParser(network);
-        const bridgeStateResult = await getBridgeState(host);
+        const { rskNetworkOrHost, atBlock, btcNetworkName } = getCommandLineParsedParams();
+        const host = networkParser(rskNetworkOrHost);
+        const bridgeStateResult = await getBridgeState(host, atBlock, btcNetworkName);
         /* eslint no-console: "off" */
-        console.log(`Bridge state in ${network}`);
+        console.log(`Bridge state in ${rskNetworkOrHost}`);
         console.log('-----------------------');
         printUtxosInformation(bridgeStateResult.activeFederationUtxos);
         printPegoutRequestsInformation(bridgeStateResult.pegoutRequests);
