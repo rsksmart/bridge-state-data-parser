@@ -1,5 +1,6 @@
 ![Github CI/CD](https://github.com/rsksmart/bridge-state-data-parser/actions/workflows/workflow.yml/badge.svg)
 [![CodeQL](https://github.com/rsksmart/bridge-state-data-parser/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/bridge-state-data-parser/actions?query=workflow%3ACodeQL)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/bridge-state-data-parser/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/bridge-state-data-parser)
 
 # bridge-state-data-parser
 
