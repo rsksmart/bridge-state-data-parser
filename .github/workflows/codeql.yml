@@ -3,10 +3,6 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  schedule:
-    - cron: "42 4 * * 3"
 
 # Declare default permissions as read only.
 permissions: read-all
@@ -16,8 +12,6 @@ jobs:
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
-      actions: read
-      contents: read
       security-events: write
 
     strategy:
