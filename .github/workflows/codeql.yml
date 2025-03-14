@@ -1,9 +1,14 @@
 name: "CodeQL"
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: "0 0 * * *"
 
 # Declare default permissions as read only.
 permissions: read-all
