@@ -19,6 +19,16 @@ const printPegoutRequestsInformation = pegoutRequests => {
     console.log(`Total: ${totalValueInBtc} BTC\n`);
 };
 
+const printPegoutsWaitingForConfirmations = pegouts => {
+    console.log(`Peg-outs waiting for confirmations  (${pegouts.length})`);
+    console.log(JSON.stringify(pegouts, null, 2));
+};
+
+const printPegoutsWaitingForSignatures = pegouts => {
+    console.log(`Peg-outs waiting for signatures (${pegouts.length})`);
+    console.log(JSON.stringify(pegouts, null, 2));
+};
+
 (async () => {
     try {
         const network = process.argv[2];
@@ -29,10 +39,9 @@ const printPegoutRequestsInformation = pegoutRequests => {
         console.log('-----------------------');
         printUtxosInformation(bridgeStateResult.activeFederationUtxos);
         printPegoutRequestsInformation(bridgeStateResult.pegoutRequests);
-        console.log(`Peg-outs waiting for confirmations  (${bridgeStateResult.pegoutsWaitingForConfirmations.length})`);
-        console.log(bridgeStateResult.pegoutsWaitingForConfirmations);
-        console.log(`Peg-outs waiting for signatures (${bridgeStateResult.pegoutsWaitingForSignatures.length})`);
-        console.log(bridgeStateResult.pegoutsWaitingForSignatures);
+        printPegoutsWaitingForConfirmations(bridgeStateResult.pegoutsWaitingForConfirmations);
+        printPegoutsWaitingForSignatures(bridgeStateResult.pegoutsWaitingForSignatures);
+        console.log(`Current Federation Block Number: ${bridgeStateResult.currentFederationBlockNumber}`);
         console.log(`Next Pegout Creation Block Number: ${bridgeStateResult.nextPegoutCreationBlockNumber}`);
     } catch (e) {
         console.log(e);
