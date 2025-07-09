@@ -4,12 +4,11 @@ const web3abi = require('web3-eth-abi');
 
 const RLP = ethUtils.rlp;
 
-const activeFederationUtxosParser = require('./active-federation-utxos').parseRLPToActiveFederationUtxos;
-const pegoutWaitingSignaturesParser = require('./pegout-waiting-signature').parseRLPToPegoutWaitingSignatures;
-const pegoutRequestsParser = require('./pegout-request').parseRLPToPegoutRequests;
-const pegoutWaitingConfirmationsParser = require('./pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
-const nextPegoutCreationBlockNumberParser =
-    require('./next-pegout-creation-block-number').parseRLPToNextPegoutCreationBlockNumber;
+const { parseRLPToPegoutRequests } = require('./pegout-request');
+const { parseRLPToActiveFederationUtxos } = require('./active-federation-utxos');
+const { parseRLPToPegoutWaitingSignatures } = require('./pegout-waiting-signature');
+const { parseRLPToPegoutWaitingConfirmations } = require('./pegout-waiting-confirmation');
+const { parseRLPToNextPegoutCreationBlockNumber } = require('./next-pegout-creation-block-number');
 
 const GET_STATE_FOR_DEBUGGING_METHOD_NAME = 'getStateForDebugging';
 
@@ -79,11 +78,11 @@ module.exports.getBridgeState = async (host, blockToSearch = 'latest') => {
     const bridgeStateEncoded = await getStateForDebugging(host, blockToSearch);
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
-    const activeFederationUtxos = activeFederationUtxosParser(decodedListOfStates[1]);
-    const pegoutWaitingSignatures = pegoutWaitingSignaturesParser(decodedListOfStates[2]);
-    const pegoutRequests = pegoutRequestsParser(decodedListOfStates[3]);
-    const pegoutWaitingConfirmations = pegoutWaitingConfirmationsParser(decodedListOfStates[4]);
-    const nextPegoutCreationBlockNumber = nextPegoutCreationBlockNumberParser(decodedListOfStates[5]);
+    const activeFederationUtxos = parseRLPToActiveFederationUtxos(decodedListOfStates[1]);
+    const pegoutWaitingSignatures = parseRLPToPegoutWaitingSignatures(decodedListOfStates[2]);
+    const pegoutRequests = parseRLPToPegoutRequests(decodedListOfStates[3]);
+    const pegoutWaitingConfirmations = parseRLPToPegoutWaitingConfirmations(decodedListOfStates[4]);
+    const nextPegoutCreationBlockNumber = parseRLPToNextPegoutCreationBlockNumber(decodedListOfStates[5]);
 
     return new BridgeState(
         activeFederationUtxos,
@@ -93,3 +92,9 @@ module.exports.getBridgeState = async (host, blockToSearch = 'latest') => {
         nextPegoutCreationBlockNumber
     );
 };
+
+module.exports.parseRLPToActiveFederationUtxos = parseRLPToActiveFederationUtxos;
+module.exports.parseRLPToPegoutWaitingSignatures = parseRLPToPegoutWaitingSignatures;
+module.exports.parseRLPToPegoutRequests = parseRLPToPegoutRequests;
+module.exports.parseRLPToPegoutWaitingConfirmations = parseRLPToPegoutWaitingConfirmations;
+module.exports.parseRLPToNextPegoutCreationBlockNumber = parseRLPToNextPegoutCreationBlockNumber;
