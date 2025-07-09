@@ -30,3 +30,9 @@ export interface BridgeState {
 }
 
 export function getBridgeState(host: string, blockToSearch?: string | number): Promise<BridgeState>;
+
+export function parseRLPToActiveFederationUtxos(rlpEncoded: string): Utxo[];
+export function parseRLPToPegoutWaitingSignatures(rlpEncoded: string): PegoutWaitingSignature[];
+export function parseRLPToPegoutRequests(rlpEncoded: string): PegoutRequest[];
+export function parseRLPToPegoutWaitingConfirmations(rlpEncoded: string): PegoutWaitingConfirmation[];
+export function parseRLPToNextPegoutCreationBlockNumber(rlpEncoded: string): number;
