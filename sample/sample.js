@@ -41,7 +41,6 @@ const printPegoutsWaitingForSignatures = pegouts => {
         printPegoutRequestsInformation(bridgeStateResult.pegoutRequests);
         printPegoutsWaitingForConfirmations(bridgeStateResult.pegoutsWaitingForConfirmations);
         printPegoutsWaitingForSignatures(bridgeStateResult.pegoutsWaitingForSignatures);
-        console.log(`Current Federation Block Number: ${bridgeStateResult.currentFederationBlockNumber}`);
         console.log(`Next Pegout Creation Block Number: ${bridgeStateResult.nextPegoutCreationBlockNumber}`);
     } catch (e) {
         console.log(e);
