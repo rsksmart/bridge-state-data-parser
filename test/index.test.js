@@ -4,6 +4,7 @@ const { expect } = require('chai');
 const bridgeStateModule = require('../index');
 
 const { encodedBridgeState, decodedBridgeState } = require('./resources/bridge-state-test-data');
+const latestBlock = require('./resources/latest-block.json');
 
 describe('bridgeState', () => {
     afterEach(() => {
@@ -93,5 +94,27 @@ describe('bridgeState', () => {
         const args = JSON.parse(lastCallArgs[1].body);
         expect(args).to.haveOwnProperty('params');
         expect(args.params[args.params.length - 1]).to.be.equal('latest');
+    });
+});
+
+describe('getLatestBlockNumber', () => {
+    afterEach(() => {
+        fetchMock.restore();
+    });
+
+    it('should return the latest block number', async () => {
+        fetchMock.mock('*', {
+            body: { jsonrpc: '2.0', id: 1, result: latestBlock },
+            headers: { 'content-type': 'application/json' }
+        });
+        const latestBlockNumber = await bridgeStateModule.getLatestBlockNumber('*');
+        expect(latestBlockNumber).to.equal(7787551);
+        expect(fetchMock.called()).to.equal(true);
+    });
+
+    it('should return null if the request fails', async () => {
+        fetchMock.mock('*', 404);
+        const latestBlockNumber = await bridgeStateModule.getLatestBlockNumber('*');
+        expect(latestBlockNumber).to.be.null;
     });
 });
