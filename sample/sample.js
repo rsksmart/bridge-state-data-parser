@@ -45,28 +45,24 @@ const printPegoutsWaitingForSignatures = pegouts => {
     try {
         const network = process.argv[2];
         const networkInfo = networkParser(network);
-        const {host} = networkInfo;
-        const {rskToBtcRequiredConfirmations} = networkInfo;
+        const { host } = networkInfo;
+        const { rskToBtcRequiredConfirmations } = networkInfo;
         const bridgeStateResult = await getBridgeState(host);
         const latestBlockNumber = await getLatestBlockNumber(host);
         /* eslint no-console: "off" */
         console.log(`Bridge state in ${network}`);
         console.log('-----------------------');
-        printUtxosInformation(
-            bridgeStateResult.activeFederationUtxos
-        );
+        printUtxosInformation(bridgeStateResult.activeFederationUtxos);
         printPegoutRequestsInformation(
-            bridgeStateResult.pegoutRequests, 
+            bridgeStateResult.pegoutRequests,
             bridgeStateResult.nextPegoutCreationBlockNumber
         );
         printPegoutsWaitingForConfirmations(
-            bridgeStateResult.pegoutsWaitingForConfirmations, 
+            bridgeStateResult.pegoutsWaitingForConfirmations,
             latestBlockNumber,
             rskToBtcRequiredConfirmations
         );
-        printPegoutsWaitingForSignatures(
-            bridgeStateResult.pegoutsWaitingForSignatures
-        );
+        printPegoutsWaitingForSignatures(bridgeStateResult.pegoutsWaitingForSignatures);
 
         console.log(`Latest block number: ${latestBlockNumber}\n`);
     } catch (e) {

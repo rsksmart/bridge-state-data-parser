@@ -1,11 +1,11 @@
 const NETWORKS = {
     mainnet: {
         host: 'https://public-node.rsk.co/',
-        rskToBtcRequiredConfirmations: 4000,
+        rskToBtcRequiredConfirmations: 4000
     },
     testnet: {
         host: 'https://public-node.testnet.rsk.co/',
-        rskToBtcRequiredConfirmations: 10,
+        rskToBtcRequiredConfirmations: 10
     }
 };
 

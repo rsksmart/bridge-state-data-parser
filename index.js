@@ -40,7 +40,7 @@ const call = async (host, rpcMethod, rpcParams = []) => {
     } catch (e) {
         return null;
     }
-}
+};
 
 const getStateForDebugging = async (host, blockToSearch) => {
     const getMethodABI = Bridge.abi.find(m => m.name === GET_STATE_FOR_DEBUGGING_METHOD_NAME);
@@ -57,12 +57,12 @@ const getStateForDebugging = async (host, blockToSearch) => {
     }
     const decodedCallToBridge = web3abi.decodeParameter(outputType, callToBridge);
     return decodedCallToBridge;
-}
+};
 
-const getLatestBlockNumber = async (host) => {
+const getLatestBlockNumber = async host => {
     const block = await call(host, 'eth_getBlockByNumber', ['latest', false]);
     return block ? parseInt(block.number, 16) : null;
-}
+};
 
 const getBridgeState = async (host, blockToSearch = 'latest') => {
     const bridgeStateEncoded = await getStateForDebugging(host, blockToSearch);
@@ -91,4 +91,4 @@ module.exports = {
     parseRLPToNextPegoutCreationBlockNumber,
     getLatestBlockNumber,
     getBridgeState
-}
+};
