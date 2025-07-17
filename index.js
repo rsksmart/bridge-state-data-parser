@@ -4,6 +4,7 @@ const web3abi = require('web3-eth-abi');
 
 const RLP = ethUtils.rlp;
 
+const BridgeState = require('./bridge-state');
 const { parseRLPToPegoutRequests } = require('./pegout-request');
 const { parseRLPToActiveFederationUtxos } = require('./active-federation-utxos');
 const { parseRLPToPegoutWaitingSignatures } = require('./pegout-waiting-signature');
@@ -14,7 +15,7 @@ const GET_STATE_FOR_DEBUGGING_METHOD_NAME = 'getStateForDebugging';
 
 let requestId = 0;
 
-async function call(host, rpcMethod, rpcParams = []) {
+const call = async (host, rpcMethod, rpcParams = []) => {
     const body = {
         jsonrpc: '2.0',
         id: `bridge-state-data-parser-${requestId++}`,
@@ -41,7 +42,7 @@ async function call(host, rpcMethod, rpcParams = []) {
     }
 }
 
-async function getStateForDebugging(host, blockToSearch) {
+const getStateForDebugging = async (host, blockToSearch) => {
     const getMethodABI = Bridge.abi.find(m => m.name === GET_STATE_FOR_DEBUGGING_METHOD_NAME);
     const outputType = getMethodABI.outputs[0].type;
     const getMethodEncodedCall = web3abi.encodeFunctionCall(getMethodABI);
@@ -58,23 +59,12 @@ async function getStateForDebugging(host, blockToSearch) {
     return decodedCallToBridge;
 }
 
-class BridgeState {
-    constructor(
-        activeFederationUtxos,
-        pegoutRequests,
-        waitingConfirmations,
-        waitingSignatures,
-        nextPegoutCreationBlockNumber
-    ) {
-        this.activeFederationUtxos = activeFederationUtxos;
-        this.pegoutRequests = pegoutRequests;
-        this.pegoutsWaitingForConfirmations = waitingConfirmations;
-        this.pegoutsWaitingForSignatures = waitingSignatures;
-        this.nextPegoutCreationBlockNumber = nextPegoutCreationBlockNumber;
-    }
+const getLatestBlockNumber = async (host) => {
+    const block = await call(host, 'eth_getBlockByNumber', ['latest', false]);
+    return block ? parseInt(block.number, 16) : null;
 }
 
-module.exports.getBridgeState = async (host, blockToSearch = 'latest') => {
+const getBridgeState = async (host, blockToSearch = 'latest') => {
     const bridgeStateEncoded = await getStateForDebugging(host, blockToSearch);
     const decodedListOfStates = RLP.decode(bridgeStateEncoded);
 
@@ -93,8 +83,12 @@ module.exports.getBridgeState = async (host, blockToSearch = 'latest') => {
     );
 };
 
-module.exports.parseRLPToActiveFederationUtxos = parseRLPToActiveFederationUtxos;
-module.exports.parseRLPToPegoutWaitingSignatures = parseRLPToPegoutWaitingSignatures;
-module.exports.parseRLPToPegoutRequests = parseRLPToPegoutRequests;
-module.exports.parseRLPToPegoutWaitingConfirmations = parseRLPToPegoutWaitingConfirmations;
-module.exports.parseRLPToNextPegoutCreationBlockNumber = parseRLPToNextPegoutCreationBlockNumber;
+module.exports = {
+    parseRLPToActiveFederationUtxos,
+    parseRLPToPegoutWaitingSignatures,
+    parseRLPToPegoutRequests,
+    parseRLPToPegoutWaitingConfirmations,
+    parseRLPToNextPegoutCreationBlockNumber,
+    getLatestBlockNumber,
+    getBridgeState
+}
