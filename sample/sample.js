@@ -22,12 +22,18 @@ const printPegoutRequestsInformation = (pegoutRequests, nextPegoutCreationBlockN
 
 const printPegoutsWaitingForConfirmations = (pegouts, latestBlockNumber, rskToBtcRequiredConfirmations) => {
     console.log(`Peg-outs waiting for confirmations  (${pegouts.length})`);
-    pegouts.forEach(pegout => {
+
+    const decorated = pegouts.map(pegout => {
         const confirmations = latestBlockNumber - pegout.pegoutCreationBlockNumber;
         const missingConfirmations = rskToBtcRequiredConfirmations - confirmations;
-        pegout.pegoutCreationBlockNumber += ` (${confirmations} confirmations, ${missingConfirmations} pending)`;
+
+        return {
+            ...pegout,
+            pegoutCreationBlockNumber: `${pegout.pegoutCreationBlockNumber} (${confirmations} confirmations, ${missingConfirmations} pending)`
+        };
     });
-    console.log(`${JSON.stringify(pegouts, null, 2)}\n`);
+
+    console.log(`${JSON.stringify(decorated, null, 2)}\n`);
 };
 
 const printPegoutsWaitingForSignatures = pegouts => {
@@ -39,8 +45,8 @@ const printPegoutsWaitingForSignatures = pegouts => {
     try {
         const network = process.argv[2];
         const networkInfo = networkParser(network);
-        const host = networkInfo.host;
-        const rskToBtcRequiredConfirmations = networkInfo.rskToBtcRequiredConfirmations;
+        const {host} = networkInfo;
+        const {rskToBtcRequiredConfirmations} = networkInfo;
         const bridgeStateResult = await getBridgeState(host);
         const latestBlockNumber = await getLatestBlockNumber(host);
         /* eslint no-console: "off" */
