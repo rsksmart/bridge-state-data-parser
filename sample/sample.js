@@ -36,7 +36,15 @@ const printPegoutsWaitingForConfirmations = (pegouts, latestBlockNumber, rskToBt
     console.log(`${JSON.stringify(decorated, null, 2)}\n`);
 };
 
-const printPegoutsWaitingForSignatures = pegouts => {
+const printPegoutsWaitingForSignatures = (pegouts, network) => {
+    // Filter to ignore a stuck peg-out in testnet
+    if (network === 'testnet') {
+        // eslint-disable-next-line no-param-reassign
+        pegouts = pegouts.filter(
+            pegout => pegout.rskTxHash !== '86c6739feeb9279d8c7cd85bc6732cb818c3a9d54b55a070adfe1d31ba10f4e5'
+        );
+    }
+
     console.log(`Peg-outs waiting for signatures (${pegouts.length})`);
     console.log(`${JSON.stringify(pegouts, null, 2)}\n`);
 };
@@ -62,7 +70,7 @@ const printPegoutsWaitingForSignatures = pegouts => {
             latestBlockNumber,
             rskToBtcRequiredConfirmations
         );
-        printPegoutsWaitingForSignatures(bridgeStateResult.pegoutsWaitingForSignatures);
+        printPegoutsWaitingForSignatures(bridgeStateResult.pegoutsWaitingForSignatures, network);
 
         console.log(`Latest block number: ${latestBlockNumber}\n`);
     } catch (e) {
