@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+
 const pegoutWaitingConfirmationsParser = require('../pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;
 
 const {

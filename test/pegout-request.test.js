@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+
 const pegoutRequestsParser = require('../pegout-request').parseRLPToPegoutRequests;
 
 const {

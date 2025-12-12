@@ -2,6 +2,7 @@ const ethUtils = require('ethereumjs-util');
 
 const RLP = ethUtils.rlp;
 const { BN } = ethUtils;
+const { bufferToRskTxHashHex } = require('./hash-utils');
 
 class PegoutRequest {
     constructor(destinationAddressHash160, amountInSatoshis, rskTxHash) {
@@ -34,7 +35,7 @@ const parseRLPToPegoutRequests = rlp => {
 
         const destinationAddressHash160 = Buffer.from(destinationAddressHash160Buffer, 'hex').toString('hex');
         const amountInSatoshis = new BN(amountInSatoshisBuffer).toString();
-        const rskTxHash = Buffer.from(rskTxHashBuffer, 'hex').toString('hex');
+        const rskTxHash = bufferToRskTxHashHex(rskTxHashBuffer);
 
         pegoutRequests.push(new PegoutRequest(destinationAddressHash160, amountInSatoshis, rskTxHash));
     }
