@@ -66,4 +66,28 @@ describe('Pegout request parser', () => {
         );
     });
 
+    it('should correctly parse rskTxHash with valid 32-byte buffer', () => {
+        // Create test data with a valid 32-byte rskTxHash buffer
+        const destinationAddressHash160 = Buffer.from('cab5925c59a9a413f8d443000abcc5640bdf0675', 'hex');
+        const amountInSatoshis = Buffer.from([0x07, 0xa1, 0x20]); // 500000 in hex
+        // Create a 32-byte hash buffer
+        const rskTxHashBuffer = Buffer.concat([
+            Buffer.from([0x0a]),
+            Buffer.from('1c78ab4377713abd54a39b6e34a038cf4b6c4b77698b8a7153776aeecb7d00', 'hex')
+        ]);
+
+        const rlpEncoded = RLP.encode([
+            destinationAddressHash160,
+            amountInSatoshis,
+            rskTxHashBuffer
+        ]);
+
+        expect(() => pegoutRequestsParser(rlpEncoded)).to.not.throw();
+        const result = pegoutRequestsParser(rlpEncoded);
+        expect(Array.isArray(result)).to.be.true;
+        const { rskTxHash } = result[0];
+        expect(rskTxHash).to.have.length(64);
+        expect(rskTxHash).to.equal('0a1c78ab4377713abd54a39b6e34a038cf4b6c4b77698b8a7153776aeecb7d00');
+    });
+
 });
