@@ -2,6 +2,7 @@ const ethUtils = require('ethereumjs-util');
 
 const RLP = ethUtils.rlp;
 const { BN } = ethUtils;
+const { bufferToRskTxHashHex } = require('./hash-utils');
 
 class PegoutWaitingConfirmation {
     constructor(btcRawTx, pegoutCreationBlockNumber, rskTxHash) {
@@ -17,7 +18,8 @@ const parseRLPToPegoutWaitingConfirmations = rlp => {
     for (let i = 0; i < rlpReleaseTransactionSet.length / 3; i++) {
         const btcRawTx = rlpReleaseTransactionSet[i * 3].toString('hex');
         const rskBlockNumber = new BN(rlpReleaseTransactionSet[i * 3 + 1]).toString();
-        const rskTxHash = new BN(rlpReleaseTransactionSet[i * 3 + 2]).toString('hex');
+        const rskTxHashBuffer = rlpReleaseTransactionSet[i * 3 + 2];
+        const rskTxHash = bufferToRskTxHashHex(rskTxHashBuffer);
         releaseTransactionSet.push(new PegoutWaitingConfirmation(btcRawTx, rskBlockNumber, rskTxHash));
     }
     return releaseTransactionSet;
