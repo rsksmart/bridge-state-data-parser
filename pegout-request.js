@@ -12,10 +12,6 @@ class PegoutRequest {
     }
 }
 
-function validatePegoutRequestBufferFields(destinationAddressHash160Buffer, amountInSatoshisBuffer, rskTxHashBuffer) {
-    return destinationAddressHash160Buffer.length === 20 && rskTxHashBuffer.length === 32;
-}
-
 const parseRLPToPegoutRequests = rlp => {
     const rlpPegoutRequests = RLP.decode(rlp);
     const pegoutRequests = [];
@@ -27,10 +23,8 @@ const parseRLPToPegoutRequests = rlp => {
         const amountInSatoshisBuffer = rlpPegoutRequests[i * 3 + 1];
         const rskTxHashBuffer = rlpPegoutRequests[i * 3 + 2];
 
-        if (
-            !validatePegoutRequestBufferFields(destinationAddressHash160Buffer, amountInSatoshisBuffer, rskTxHashBuffer)
-        ) {
-            return pegoutRequests;
+        if (destinationAddressHash160Buffer.length !== 20) {
+            throw new Error(`Destination address hash160 buffer must be exactly 20 bytes, got ${destinationAddressHash160Buffer.length} bytes`);
         }
 
         const destinationAddressHash160 = Buffer.from(destinationAddressHash160Buffer, 'hex').toString('hex');
