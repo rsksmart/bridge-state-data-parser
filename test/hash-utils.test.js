@@ -49,4 +49,3 @@ describe('hash-utils', () => {
         });
     });
 });
-

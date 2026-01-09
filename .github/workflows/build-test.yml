@@ -5,7 +5,7 @@ on: [push, pull_request]
 permissions: read-all
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +32,9 @@ jobs:
           
       - name: Install 🔧
         run: npm ci --no-audit --no-fund
+
+      - name: Lint 🔍
+        run: npm run lint
 
       - name: Test 🚨
         run: npm run test

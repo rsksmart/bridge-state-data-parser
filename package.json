@@ -16,26 +16,26 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@rsksmart/rsk-precompiled-abis": "^8.0.0-REED",
-    "ethereumjs-util": "^7.0.10",
-    "web3-eth-abi": "^4.1.4"
+    "@rsksmart/rsk-precompiled-abis": "8.0.0-REED",
+    "ethereumjs-util": "7.0.10",
+    "web3-eth-abi": "4.1.4"
   },
   "bugs": {
     "url": "https://github.com/rsksmart/bridge-state-data-parser/issues"
   },
   "homepage": "https://github.com/rsksmart/bridge-state-data-parser#readme",
   "devDependencies": {
-    "@rsksmart/btc-eth-unit-converter": "^1.0.0",
-    "chai": "^6.2.1",
-    "eslint": "^8.57.1",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-chai-friendly": "^1.0.1",
-    "eslint-plugin-import": "^2.32.0",
-    "fetch-mock": "^9.11.0",
-    "mocha": "^11.1.0",
-    "nyc": "^17.1.0",
-    "prettier": "^3.5.3",
-    "web3": "^4.3.0"
+    "@rsksmart/btc-eth-unit-converter": "1.0.0",
+    "chai": "6.2.1",
+    "eslint": "8.57.1",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "10.1.5",
+    "eslint-plugin-chai-friendly": "1.0.1",
+    "eslint-plugin-import": "2.32.0",
+    "fetch-mock": "9.11.0",
+    "mocha": "11.1.0",
+    "nyc": "17.1.0",
+    "prettier": "3.5.3",
+    "web3": "4.3.0"
   }
 }
