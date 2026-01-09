@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
       - name: "Check file existence"
         id: check_files
@@ -28,13 +28,15 @@ jobs:
       - name: File exists
         if: steps.check_files.outputs.files_exists != 'true'
         # Only runs if all of the files exists
-        run: exit 1
+        run: |
+          echo "ERROR: Required files (package.json, README.md) are missing!"
+          exit 1
 
       - name: Get package.json package name and match with repository name
         run: |
           echo PACKAGE_NAME=$(cat package.json | jq -r .name | cut -f2 -d"\"" | cut -f2 -d"@") >> $GITHUB_OUTPUT
           echo PACKAGE_VERSION="refs/tags/v"$(cat package.json | jq -r .version) >> $GITHUB_OUTPUT
-          echo PACKAGE_REPOSITORY=$(cat package.json | jq -r .repository.url | sed 's/\+https//') >> $GITHUB_OUTPUT
+          echo PACKAGE_REPOSITORY=$(cat package.json | jq -r .repository.url | sed 's/^[^:]*:/git:/') >> $GITHUB_OUTPUT
         id: get_package_info
 
       - name: Print outputs for debugging
@@ -49,22 +51,29 @@ jobs:
       - name: Check if package_name matches with repository name
         if: github.repository != steps.get_package_info.outputs.PACKAGE_NAME
         # Fail if package name not properly configured
-        run: exit 1
+        run: |
+          echo "ERROR: Package name '${{ steps.get_package_info.outputs.PACKAGE_NAME }}' does not match repository name '${{ github.repository }}'"
+          exit 1
 
       - name: Check if package version matches with tag
         if: github.ref != steps.get_package_info.outputs.PACKAGE_VERSION
         # Fail if package version not properly setted
-        run: exit 1
+        run: |
+          echo "ERROR: Package version '${{ steps.get_package_info.outputs.PACKAGE_VERSION }}' does not match GitHub tag '${{ github.ref }}'"
+          exit 1
       
       - name: Check if package repository matches with repository
         if: github.repositoryUrl != steps.get_package_info.outputs.PACKAGE_REPOSITORY
         # Fail if package repository doesn't match with repository
-        run: exit 1
+        run: |
+          echo "ERROR: Package repository URL '${{ steps.get_package_info.outputs.PACKAGE_REPOSITORY }}' does not match GitHub repository URL '${{ github.repositoryUrl }}'"
+          exit 1
 
       - name: Setup Node.js
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
-          node-version: 20
+          node-version: 22
+          cache: 'npm'
           registry-url: https://registry.npmjs.org
 
       - name: Clean install dependencies
@@ -75,8 +84,8 @@ jobs:
       - name: Update npm
         run: npm install -g npm@latest
 
-      - name: Build
-        run: npm run build
+      - name: Run tests
+        run: npm run test
 
       - name: Pre upload validation
         id: pack
@@ -125,7 +134,7 @@ jobs:
           echo "POST_UPLOAD_HASH: '${{ steps.unpack.outputs.POST_UPLOAD_HASH }}'"
 
           if [ "${{ steps.pack.outputs.PRE_UPLOAD_HASH }}" != "${{ steps.unpack.outputs.POST_UPLOAD_HASH }}" ]; then
-            echo "Hash mismatch detected!"
+            echo "ERROR: Hash mismatch detected! Pre-upload hash: '${{ steps.pack.outputs.PRE_UPLOAD_HASH }}' does not match post-upload hash: '${{ steps.unpack.outputs.POST_UPLOAD_HASH }}'"
             exit 1
           fi
           echo "Hashes match successfully!"
