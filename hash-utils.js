@@ -16,4 +16,3 @@ function bufferToRskTxHashHex(rskTxHashBuffer) {
 module.exports = {
     bufferToRskTxHashHex
 };
-

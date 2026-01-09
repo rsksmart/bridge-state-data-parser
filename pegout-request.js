@@ -24,7 +24,9 @@ const parseRLPToPegoutRequests = rlp => {
         const rskTxHashBuffer = rlpPegoutRequests[i * 3 + 2];
 
         if (destinationAddressHash160Buffer.length !== 20) {
-            throw new Error(`Destination address hash160 buffer must be exactly 20 bytes, got ${destinationAddressHash160Buffer.length} bytes`);
+            throw new Error(
+                `Destination address hash160 buffer must be exactly 20 bytes, got ${destinationAddressHash160Buffer.length} bytes`
+            );
         }
 
         const destinationAddressHash160 = Buffer.from(destinationAddressHash160Buffer, 'hex').toString('hex');

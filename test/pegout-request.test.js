@@ -54,11 +54,7 @@ describe('Pegout request parser', () => {
         // Create a 31-byte hash buffer (invalid - should be 32 bytes)
         const invalidRskTxHash = Buffer.from('1c78ab4377713abd54a39b6e34a038cf4b6c4b77698b8a7153776aeecb7d00', 'hex');
 
-        const rlpEncoded = RLP.encode([
-            destinationAddressHash160,
-            amountInSatoshis,
-            invalidRskTxHash
-        ]);
+        const rlpEncoded = RLP.encode([destinationAddressHash160, amountInSatoshis, invalidRskTxHash]);
 
         expect(() => pegoutRequestsParser(rlpEncoded)).to.throw(
             Error,
@@ -76,11 +72,7 @@ describe('Pegout request parser', () => {
             Buffer.from('1c78ab4377713abd54a39b6e34a038cf4b6c4b77698b8a7153776aeecb7d00', 'hex')
         ]);
 
-        const rlpEncoded = RLP.encode([
-            destinationAddressHash160,
-            amountInSatoshis,
-            rskTxHashBuffer
-        ]);
+        const rlpEncoded = RLP.encode([destinationAddressHash160, amountInSatoshis, rskTxHashBuffer]);
 
         expect(() => pegoutRequestsParser(rlpEncoded)).to.not.throw();
         const result = pegoutRequestsParser(rlpEncoded);
@@ -89,5 +81,4 @@ describe('Pegout request parser', () => {
         expect(rskTxHash).to.have.length(64);
         expect(rskTxHash).to.equal('0a1c78ab4377713abd54a39b6e34a038cf4b6c4b77698b8a7153776aeecb7d00');
     });
-
 });
