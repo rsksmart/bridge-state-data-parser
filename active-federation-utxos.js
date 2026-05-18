@@ -14,14 +14,30 @@ const parseRLPToActiveFederationUtxos = rlp => {
 
     const activeFederationUtxos = [];
 
+    const utxoValueHexStartIndex = 0;
+    const utxoValueHexLength = 15;
+
+    const btcTxHashStartIndex = 70;
+    const btcTxHashLength = 64; // 32 bytes in hex
+
+    const btcTxOutputIndexStartIndex = 134;
+    const btcTxOutputIndexLength = 2; // 1 byte in hex
+
     rlpActiveFederationUtxosList.forEach(utxo => {
         const utxoHex = toHex(utxo);
-        const valueBuffer = Buffer.from(utxoHex.slice(0, 15), 'hex');
+        const valueBuffer = Buffer.from(
+            utxoHex.slice(utxoValueHexStartIndex, utxoValueHexStartIndex + utxoValueHexLength),
+            'hex'
+        );
         valueBuffer.reverse();
         const valueInSatoshis = parseInt(valueBuffer.toString('hex'), 16);
 
-        const btcTxHash = utxoHex.slice(70, 70 + 64);
-        const btcTxOutputIndex = parseInt(utxoHex.slice(134, 134 + 2), 16);
+        const btcTxHash = utxoHex.slice(btcTxHashStartIndex, btcTxHashStartIndex + btcTxHashLength);
+
+        const btcTxOutputIndex = parseInt(
+            utxoHex.slice(btcTxOutputIndexStartIndex, btcTxOutputIndexStartIndex + btcTxOutputIndexLength),
+            16
+        );
 
         activeFederationUtxos.push(new Utxo(btcTxHash, btcTxOutputIndex, valueInSatoshis));
     });
