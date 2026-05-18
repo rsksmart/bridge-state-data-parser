@@ -15,6 +15,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@ethereumjs/rlp": "10.1.1",
     "@rsksmart/rsk-precompiled-abis": "8.0.0-REED",
