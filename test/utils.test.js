@@ -1,8 +1,8 @@
 const { expect } = require('chai');
 
-const { bufferToRskTxHashHex } = require('../hash-utils');
+const { bufferToRskTxHashHex } = require('../utils');
 
-describe('hash-utils', () => {
+describe('utils', () => {
     describe('bufferToRskTxHashHex', () => {
         it('should preserve leading zeros in a 32-byte hash', () => {
             // Create a 32-byte hash that starts with 0x00

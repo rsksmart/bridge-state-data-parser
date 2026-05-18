@@ -38,7 +38,7 @@ describe('Pegout waiting signatures parser', () => {
     });
 
     it('should throw an error when an invalid input is provided', () => {
-        expect(() => pegoutWaitingSignaturesParser('invalid')).to.throw(Error, 'invalid remainder');
+        expect(() => pegoutWaitingSignaturesParser('invalid')).to.throw(Error, 'invalid RLP: remainder must be zero');
     });
 
     it('should return pegouts waiting signatures', () => {
