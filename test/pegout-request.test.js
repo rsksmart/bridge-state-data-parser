@@ -1,8 +1,6 @@
 const { expect } = require('chai');
 
-const ethUtils = require('ethereumjs-util');
-
-const RLP = ethUtils.rlp;
+const { RLP } = require('@ethereumjs/rlp');
 const pegoutRequestsParser = require('../pegout-request').parseRLPToPegoutRequests;
 
 const {
@@ -39,7 +37,7 @@ describe('Pegout request parser', () => {
     });
 
     it('should throw an error when an invalid input is provided', () => {
-        expect(() => pegoutRequestsParser('invalid')).to.throw(Error, 'invalid remainder');
+        expect(() => pegoutRequestsParser('invalid')).to.throw(Error, 'invalid RLP: remainder must be zero');
     });
 
     it('should return utxos', () => {

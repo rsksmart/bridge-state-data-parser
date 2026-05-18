@@ -19,7 +19,7 @@ describe('active federation utxos parser', () => {
     });
 
     it('should throw an error when an invalid input is provided', () => {
-        expect(() => activeFederationUtxosParser('invalid')).to.throw(Error, 'invalid remainder');
+        expect(() => activeFederationUtxosParser('invalid')).to.throw(Error, 'invalid RLP: remainder must be zero');
     });
 
     it('should return utxos', () => {

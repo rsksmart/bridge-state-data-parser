@@ -1,6 +1,5 @@
-const ethUtils = require('ethereumjs-util');
-
-const RLP = ethUtils.rlp;
+const { RLP } = require('@ethereumjs/rlp');
+const { toHex } = require('./utils');
 
 class PegoutWaitingSignature {
     constructor(rskTxHash, btcRawTx) {
@@ -26,8 +25,8 @@ const parseRLPToPegoutWaitingSignatures = rlpData => {
             return rskTxsWaitingForSignatures;
         }
 
-        const rskTxHash = rskTxHashBuffer.toString('hex');
-        const btcTransactionSerialized = btcRawTxBuffer.toString('hex');
+        const rskTxHash = toHex(rskTxHashBuffer);
+        const btcTransactionSerialized = toHex(btcRawTxBuffer);
 
         rskTxsWaitingForSignatures.push(new PegoutWaitingSignature(rskTxHash, btcTransactionSerialized));
     }

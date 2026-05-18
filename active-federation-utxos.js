@@ -1,6 +1,5 @@
-const ethUtils = require('ethereumjs-util');
-
-const RLP = ethUtils.rlp;
+const { RLP } = require('@ethereumjs/rlp');
+const { toHex } = require('./utils');
 
 class Utxo {
     constructor(btcTxHash, btcTxOutputIndex, valueInSatoshis) {
@@ -15,13 +14,30 @@ const parseRLPToActiveFederationUtxos = rlp => {
 
     const activeFederationUtxos = [];
 
+    const utxoValueHexStartIndex = 0;
+    const utxoValueHexLength = 15;
+
+    const btcTxHashStartIndex = 70;
+    const btcTxHashLength = 64; // 32 bytes in hex
+
+    const btcTxOutputIndexStartIndex = 134;
+    const btcTxOutputIndexLength = 2; // 1 byte in hex
+
     rlpActiveFederationUtxosList.forEach(utxo => {
-        const valueBuffer = Buffer.from(utxo.toString('hex').substr(0, 15), 'hex');
+        const utxoHex = toHex(utxo);
+        const valueBuffer = Buffer.from(
+            utxoHex.slice(utxoValueHexStartIndex, utxoValueHexStartIndex + utxoValueHexLength),
+            'hex'
+        );
         valueBuffer.reverse();
         const valueInSatoshis = parseInt(valueBuffer.toString('hex'), 16);
 
-        const btcTxHash = Buffer.from(utxo.toString('hex').substr(70, 64), 'hex').toString('hex');
-        const btcTxOutputIndex = parseInt(utxo.toString('hex').substr(134, 2), 16);
+        const btcTxHash = utxoHex.slice(btcTxHashStartIndex, btcTxHashStartIndex + btcTxHashLength);
+
+        const btcTxOutputIndex = parseInt(
+            utxoHex.slice(btcTxOutputIndexStartIndex, btcTxOutputIndexStartIndex + btcTxOutputIndexLength),
+            16
+        );
 
         activeFederationUtxos.push(new Utxo(btcTxHash, btcTxOutputIndex, valueInSatoshis));
     });

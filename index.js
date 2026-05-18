@@ -1,8 +1,6 @@
 const Bridge = require('@rsksmart/rsk-precompiled-abis').bridge;
-const ethUtils = require('ethereumjs-util');
+const { RLP } = require('@ethereumjs/rlp');
 const web3abi = require('web3-eth-abi');
-
-const RLP = ethUtils.rlp;
 
 const BridgeState = require('./bridge-state');
 const { parseRLPToPegoutRequests } = require('./pegout-request');

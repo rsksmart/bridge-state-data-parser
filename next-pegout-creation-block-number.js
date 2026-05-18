@@ -1,11 +1,9 @@
-const ethUtils = require('ethereumjs-util');
-
-const RLP = ethUtils.rlp;
-const { BN } = ethUtils;
+const { RLP } = require('@ethereumjs/rlp');
+const { bytesToDecimalString } = require('./utils');
 
 const parseRLPToNextPegoutCreationBlockNumber = rlp => {
     const rlpNextPegoutCreationBlockNumber = RLP.decode(rlp);
-    return Number(new BN(rlpNextPegoutCreationBlockNumber).toString());
+    return Number(bytesToDecimalString(rlpNextPegoutCreationBlockNumber));
 };
 
 exports.parseRLPToNextPegoutCreationBlockNumber = parseRLPToNextPegoutCreationBlockNumber;
