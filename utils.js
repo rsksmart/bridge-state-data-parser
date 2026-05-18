@@ -16,13 +16,17 @@ function bufferToRskTxHashHex(rskTxHashBuffer) {
 
 function bytesToDecimalString(bytes) {
     const buf = Buffer.from(bytes);
-    if (buf.length === 0) return '0';
+    if (buf.length === 0) {
+        return '0';
+    }
     return BigInt(`0x${buf.toString('hex')}`).toString();
 }
 
 function numberToRlpBytes(n) {
     let hex = BigInt(n).toString(16);
-    if (hex.length % 2) hex = `0${hex}`;
+    if (hex.length % 2) {
+        hex = `0${hex}`;
+    }
     return Buffer.from(hex || '0', 'hex');
 }
 
