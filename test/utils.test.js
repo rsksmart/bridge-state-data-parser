@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 
-const { bufferToRskTxHashHex } = require('../utils');
+const { bufferToRskTxHashHex, bytesToDecimalString, numberToRlpBytes, toHex } = require('../utils');
 
 describe('utils', () => {
     describe('bufferToRskTxHashHex', () => {
@@ -46,6 +46,49 @@ describe('utils', () => {
                 Error,
                 'RSK transaction hash buffer must be exactly 32 bytes, got 33 bytes'
             );
+        });
+    });
+
+    describe('bytesToDecimalString', () => {
+        it('should convert a single-byte value', () => {
+            expect(bytesToDecimalString(Buffer.from([0x00]))).to.equal('0');
+        });
+
+        it('should convert a multi-byte amount', () => {
+            expect(bytesToDecimalString(Buffer.from([0x07, 0xa1, 0x20]))).to.equal('500000');
+        });
+
+        it('should convert a multi-Uint8Array amount', () => {
+            expect(bytesToDecimalString(new Uint8Array([0x07, 0xa1, 0x20]))).to.equal('500000');
+        });
+    });
+
+    describe('numberToRlpBytes', () => {
+        it('should encode zero as a single zero byte', () => {
+            expect(numberToRlpBytes(0)).to.deep.equal(Buffer.from([0x00]));
+        });
+
+        it('should encode big number', () => {
+            const n = 3873302;
+            expect(numberToRlpBytes(n)).to.deep.equal(Buffer.from('3b1a16', 'hex'));
+        });
+
+        it('should pad odd-length hex with a leading zero', () => {
+            expect(numberToRlpBytes(10)).to.deep.equal(Buffer.from([0x0a]));
+        });
+    });
+
+    describe('toHex', () => {
+        it('should convert a Buffer to hex', () => {
+            expect(toHex(Buffer.from('deadbeef', 'hex'))).to.equal('deadbeef');
+        });
+
+        it('should convert a Uint8Array to hex', () => {
+            expect(toHex(new Uint8Array([0xde, 0xad, 0xbe, 0xef]))).to.equal('deadbeef');
+        });
+
+        it('should return an empty string for empty input', () => {
+            expect(toHex(Buffer.alloc(0))).to.equal('');
         });
     });
 });
