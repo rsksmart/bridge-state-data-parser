@@ -36,7 +36,7 @@ const call = async (host, rpcMethod, rpcParams = []) => {
         }
 
         return data.result;
-    } catch (e) {
+    } catch {
         return null;
     }
 };

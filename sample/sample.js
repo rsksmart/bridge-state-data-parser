@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const btcEthUnitConverter = require('@rsksmart/btc-eth-unit-converter');
 const networkParser = require('./network');
 const { getBridgeState, getLatestBlockNumber } = require('../index');
