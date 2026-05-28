@@ -1,4 +1,4 @@
-const { Web3 } = require('web3');
+const { JsonRpcProvider } = require('ethers');
 const networkParser = require('./network');
 
 const BRIDGE_ADDRESS = '0x0000000000000000000000000000000001000006';
@@ -8,7 +8,7 @@ const BRIDGE_ADDRESS = '0x0000000000000000000000000000000001000006';
     try {
         const network = networkParser(process.argv[2]);
         const storageKey = process.argv[3];
-        const web3 = new Web3(network);
+        const provider = new JsonRpcProvider(network);
 
         const storagePosition = Buffer.from(storageKey)
             .toString('hex')
@@ -17,7 +17,7 @@ const BRIDGE_ADDRESS = '0x0000000000000000000000000000000001000006';
 
         /* eslint no-console: "off" */
         console.log(`Storage position for key '${storageKey}': ${storagePosition}`);
-        const storageValue = await web3.eth.getStorageAt(BRIDGE_ADDRESS, storagePosition);
+        const storageValue = await provider.getStorage(BRIDGE_ADDRESS, storagePosition);
 
         console.log(`Storage value for key '${storageKey}' (RLP encoded): ${storageValue}`);
     } catch (e) {
