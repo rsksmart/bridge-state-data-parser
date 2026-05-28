@@ -1,6 +1,6 @@
 {
   "name": "@rsksmart/bridge-state-data-parser",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "Utility to get the RSK Powpeg current bridge state",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "dependencies": {
     "@ethereumjs/rlp": "10.1.1",
     "@rsksmart/rsk-precompiled-abis": "8.0.0-REED",
-    "web3-eth-abi": "4.4.1"
+    "ethers": "6.16.0"
   },
   "bugs": {
     "url": "https://github.com/rsksmart/bridge-state-data-parser/issues"
@@ -38,7 +38,6 @@
     "fetch-mock": "9.11.0",
     "mocha": "11.7.5",
     "nyc": "18.0.0",
-    "prettier": "3.8.3",
-    "web3": "4.16.0"
+    "prettier": "3.8.3"
   }
 }

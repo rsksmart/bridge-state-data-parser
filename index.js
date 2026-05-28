@@ -1,6 +1,6 @@
 const Bridge = require('@rsksmart/rsk-precompiled-abis').bridge;
 const { RLP } = require('@ethereumjs/rlp');
-const web3abi = require('web3-eth-abi');
+const { Interface } = require('ethers');
 
 const BridgeState = require('./bridge-state');
 const { parseRLPToPegoutRequests } = require('./pegout-request');
@@ -10,6 +10,7 @@ const { parseRLPToPegoutWaitingConfirmations } = require('./pegout-waiting-confi
 const { parseRLPToNextPegoutCreationBlockNumber } = require('./next-pegout-creation-block-number');
 
 const GET_STATE_FOR_DEBUGGING_METHOD_NAME = 'getStateForDebugging';
+const bridgeInterface = new Interface(Bridge.abi);
 
 let requestId = 0;
 
@@ -41,9 +42,7 @@ const call = async (host, rpcMethod, rpcParams = []) => {
 };
 
 const getStateForDebugging = async (host, blockToSearch) => {
-    const getMethodABI = Bridge.abi.find(m => m.name === GET_STATE_FOR_DEBUGGING_METHOD_NAME);
-    const outputType = getMethodABI.outputs[0].type;
-    const getMethodEncodedCall = web3abi.encodeFunctionCall(getMethodABI);
+    const getMethodEncodedCall = bridgeInterface.encodeFunctionData(GET_STATE_FOR_DEBUGGING_METHOD_NAME);
     const callArguments = {
         data: getMethodEncodedCall,
         to: '0x0000000000000000000000000000000001000006',
@@ -53,8 +52,7 @@ const getStateForDebugging = async (host, blockToSearch) => {
     if (!callToBridge) {
         return null;
     }
-    const decodedCallToBridge = web3abi.decodeParameter(outputType, callToBridge);
-    return decodedCallToBridge;
+    return bridgeInterface.decodeFunctionResult(GET_STATE_FOR_DEBUGGING_METHOD_NAME, callToBridge)[0];
 };
 
 const getLatestBlockNumber = async host => {
