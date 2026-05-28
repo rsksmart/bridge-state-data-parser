@@ -1,5 +1,3 @@
-const { expect } = require('chai');
-
 const { bufferToRskTxHashHex, bytesToDecimalString, numberToRlpBytes, toHex } = require('../utils');
 
 describe('utils', () => {

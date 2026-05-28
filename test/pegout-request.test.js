@@ -1,5 +1,3 @@
-const { expect } = require('chai');
-
 const { RLP } = require('@ethereumjs/rlp');
 const pegoutRequestsParser = require('../pegout-request').parseRLPToPegoutRequests;
 
