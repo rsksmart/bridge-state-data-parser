@@ -13,7 +13,9 @@ const parseRLPToPegoutRequests = rlp => {
     const rlpPegoutRequests = RLP.decode(rlp);
     const pegoutRequests = [];
 
-    if (rlpPegoutRequests.length % 3 !== 0) return pegoutRequests;
+    if (rlpPegoutRequests.length % 3 !== 0) {
+        return pegoutRequests;
+    }
 
     for (let i = 0; i < rlpPegoutRequests.length / 3; i++) {
         const destinationAddressHash160Buffer = rlpPegoutRequests[i * 3];

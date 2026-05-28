@@ -1,26 +1,39 @@
-const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
 const globals = require('globals');
+const eslintConfigPrettier = require('eslint-config-prettier/flat');
+const chaiFriendly = require('eslint-plugin-chai-friendly');
+const importPlugin = require('eslint-plugin-import');
 
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
+const JS_FILES = ['**/*.js'];
 
 module.exports = [
+    { ignores: ['node_modules/**', 'dist/**', 'coverage/**', '.*'] },
+
+    js.configs.recommended,
+
+    importPlugin.flatConfigs.recommended,
+
     {
-        ignores: ['node_modules/**', 'dist/**', 'coverage/**', '.*']
+        plugins: {
+            'chai-friendly': chaiFriendly
+        },
+        rules: {
+            ...chaiFriendly.configs.recommendedFlat.rules
+        }
     },
-    ...compat.extends('eslint:recommended', 'airbnb-base', 'prettier', 'plugin:chai-friendly/recommended'),
+
+    eslintConfigPrettier,
+
     {
+        files: JS_FILES,
         languageOptions: {
-            ecmaVersion: 2020,
+            ecmaVersion: 2021,
             sourceType: 'commonjs',
             globals: {
-                ...globals.browser,
                 ...globals.node,
-                ...globals.mocha
+                ...globals.es2021,
+                ...globals.mocha,
+                ...globals.browser
             }
         },
         rules: {
@@ -36,11 +49,29 @@ module.exports = [
             ]
         }
     },
+
     {
         files: ['test/**/*.js'],
+        languageOptions: {
+            globals: {
+                expect: 'readonly'
+            }
+        },
         rules: {
-            'no-unused-expressions': 'off',
             'no-underscore-dangle': 'off'
+        }
+    },
+
+    {
+        files: ['test/**/*.mjs'],
+        languageOptions: {
+            ecmaVersion: 2021,
+            sourceType: 'module',
+            globals: {
+                ...globals.node,
+                ...globals.es2021,
+                ...globals.mocha
+            }
         }
     }
 ];

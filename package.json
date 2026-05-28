@@ -16,12 +16,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=20"
-  },
-  "overrides": {
-    "eslint-config-airbnb-base": {
-      "eslint": "$eslint"
-    }
+    "node": ">=24"
   },
   "dependencies": {
     "@ethereumjs/rlp": "10.1.1",
@@ -33,12 +28,10 @@
   },
   "homepage": "https://github.com/rsksmart/bridge-state-data-parser#readme",
   "devDependencies": {
-    "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "9.39.4",
     "@rsksmart/btc-eth-unit-converter": "1.0.1",
     "chai": "6.2.2",
     "eslint": "9.39.4",
-    "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-chai-friendly": "1.2.0",
     "eslint-plugin-import": "2.32.0",
