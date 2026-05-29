@@ -16,7 +16,9 @@ const parseRLPToPegoutWaitingSignatures = rlpData => {
     const rlpRskTxsWaitingForSignatures = RLP.decode(rlpData);
     const rskTxsWaitingForSignatures = [];
 
-    if (rlpRskTxsWaitingForSignatures.length % 2 !== 0) return rskTxsWaitingForSignatures;
+    if (rlpRskTxsWaitingForSignatures.length % 2 !== 0) {
+        return rskTxsWaitingForSignatures;
+    }
 
     for (let i = 0; i < rlpRskTxsWaitingForSignatures.length / 2; i++) {
         const rskTxHashBuffer = rlpRskTxsWaitingForSignatures[i * 2];

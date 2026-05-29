@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 const btcEthUnitConverter = require('@rsksmart/btc-eth-unit-converter');
 const networkParser = require('./network');
 const { getBridgeState, getLatestBlockNumber } = require('../index');
@@ -39,7 +38,6 @@ const printPegoutsWaitingForConfirmations = (pegouts, latestBlockNumber, rskToBt
 const printPegoutsWaitingForSignatures = (pegouts, network) => {
     // Filter to ignore a stuck peg-out in testnet
     if (network === 'testnet') {
-        // eslint-disable-next-line no-param-reassign
         pegouts = pegouts.filter(
             pegout => pegout.rskTxHash !== '86c6739feeb9279d8c7cd85bc6732cb818c3a9d54b55a070adfe1d31ba10f4e5'
         );
