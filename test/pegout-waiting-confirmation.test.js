@@ -1,5 +1,3 @@
-const { expect } = require('chai');
-
 const { RLP } = require('@ethereumjs/rlp');
 const { numberToRlpBytes } = require('../utils');
 const pegoutWaitingConfirmationsParser = require('../pegout-waiting-confirmation').parseRLPToPegoutWaitingConfirmations;

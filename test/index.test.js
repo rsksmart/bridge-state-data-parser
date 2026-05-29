@@ -1,56 +1,60 @@
-const fetchMock = require('fetch-mock');
-const { expect } = require('chai');
+const fetchMock = require('fetch-mock').default;
 
 const bridgeStateModule = require('../index');
 
 const { encodedBridgeState, decodedBridgeState } = require('./resources/bridge-state-test-data');
 const latestBlock = require('./resources/latest-block.json');
 
+const mockFetchRoute = response => {
+    fetchMock.route('*', response);
+    fetchMock.mockGlobal();
+};
+
 describe('bridgeState', () => {
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
 
     it('should return the bridge state', async () => {
-        fetchMock.mock('*', {
+        mockFetchRoute({
             body: { jsonrpc: '2.0', id: 1, result: encodedBridgeState },
             headers: { 'content-type': 'application/json' }
         });
         const bridgeStateResult = await bridgeStateModule.getBridgeState('*');
         expect(bridgeStateResult).to.deep.equal(decodedBridgeState);
-        expect(fetchMock.called()).to.equal(true);
+        expect(fetchMock.callHistory.called()).to.equal(true);
     });
 
     it('Uses "latest" by default as the Block to search', async () => {
-        fetchMock.mock('*', {
+        mockFetchRoute({
             body: { jsonrpc: '2.0', id: 1, result: encodedBridgeState },
             headers: { 'content-type': 'text/plain' }
         });
         const bridgeStateResult = await bridgeStateModule.getBridgeState('*');
         expect(bridgeStateResult).to.deep.equal(decodedBridgeState);
 
-        const lastCallArgs = fetchMock.lastCall();
-        const args = JSON.parse(lastCallArgs[1].body);
+        const lastCall = fetchMock.callHistory.lastCall();
+        const args = JSON.parse(lastCall.options.body);
         expect(args).to.haveOwnProperty('params');
         expect(args.params[args.params.length - 1]).to.be.equal('latest');
     });
 
     it('Uses 123 as the Block to search', async () => {
-        fetchMock.mock('*', {
+        mockFetchRoute({
             body: { jsonrpc: '2.0', id: 1, result: encodedBridgeState },
             headers: { 'content-type': 'text/plain' }
         });
         const bridgeStateResult = await bridgeStateModule.getBridgeState('*', 123);
         expect(bridgeStateResult).to.deep.equal(decodedBridgeState);
 
-        const lastCallArgs = fetchMock.lastCall();
-        const args = JSON.parse(lastCallArgs[1].body);
+        const lastCall = fetchMock.callHistory.lastCall();
+        const args = JSON.parse(lastCall.options.body);
         expect(args).to.haveOwnProperty('params');
         expect(args.params[args.params.length - 1]).to.be.equal(123);
     });
 
     it('Invalid data yields empty state', async () => {
-        fetchMock.mock('*', {
+        mockFetchRoute({
             body: 'No valid data',
             headers: { 'content-type': 'text/plain' }
         });
@@ -63,14 +67,14 @@ describe('bridgeState', () => {
             nextPegoutCreationBlockNumber: 0
         });
 
-        const lastCallArgs = fetchMock.lastCall();
-        const args = JSON.parse(lastCallArgs[1].body);
+        const lastCall = fetchMock.callHistory.lastCall();
+        const args = JSON.parse(lastCall.options.body);
         expect(args).to.haveOwnProperty('params');
         expect(args.params[args.params.length - 1]).to.be.equal('latest');
     });
 
     it('Failed request yields empty state', async () => {
-        fetchMock.mock('*', {
+        mockFetchRoute({
             body: {
                 jsonrpc: '2.0',
                 id: 'bridge-state-data-parser-1',
@@ -90,8 +94,8 @@ describe('bridgeState', () => {
             nextPegoutCreationBlockNumber: 0
         });
 
-        const lastCallArgs = fetchMock.lastCall();
-        const args = JSON.parse(lastCallArgs[1].body);
+        const lastCall = fetchMock.callHistory.lastCall();
+        const args = JSON.parse(lastCall.options.body);
         expect(args).to.haveOwnProperty('params');
         expect(args.params[args.params.length - 1]).to.be.equal('latest');
     });
@@ -99,21 +103,21 @@ describe('bridgeState', () => {
 
 describe('getLatestBlockNumber', () => {
     afterEach(() => {
-        fetchMock.restore();
+        fetchMock.hardReset();
     });
 
     it('should return the latest block number', async () => {
-        fetchMock.mock('*', {
+        mockFetchRoute({
             body: { jsonrpc: '2.0', id: 1, result: latestBlock },
             headers: { 'content-type': 'application/json' }
         });
         const latestBlockNumber = await bridgeStateModule.getLatestBlockNumber('*');
         expect(latestBlockNumber).to.equal(7787551);
-        expect(fetchMock.called()).to.equal(true);
+        expect(fetchMock.callHistory.called()).to.equal(true);
     });
 
     it('should return null if the request fails', async () => {
-        fetchMock.mock('*', 404);
+        mockFetchRoute(404);
         const latestBlockNumber = await bridgeStateModule.getLatestBlockNumber('*');
         expect(latestBlockNumber).to.be.null;
     });
