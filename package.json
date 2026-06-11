@@ -19,7 +19,7 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@ethereumjs/rlp": "10.1.1",
+    "@ethereumjs/rlp": "10.1.2",
     "@rsksmart/rsk-precompiled-abis": "8.0.0-REED",
     "ethers": "6.16.0"
   },
