@@ -19,9 +19,9 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@ethereumjs/rlp": "10.1.1",
+    "@ethereumjs/rlp": "10.1.2",
     "@rsksmart/rsk-precompiled-abis": "8.0.0-REED",
-    "ethers": "6.16.0"
+    "ethers": "6.17.0"
   },
   "bugs": {
     "url": "https://github.com/rsksmart/bridge-state-data-parser/issues"
@@ -33,7 +33,7 @@
     "chai": "6.2.2",
     "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-chai-friendly": "1.2.0",
+    "eslint-plugin-chai-friendly": "1.2.1",
     "eslint-plugin-import": "2.32.0",
     "globals": "17.6.0",
     "fetch-mock": "12.6.0",
