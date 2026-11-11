@@ -2,10 +2,11 @@ const { RLP } = require('@ethereumjs/rlp');
 const { toHex } = require('./utils');
 
 class Utxo {
-    constructor(btcTxHash, btcTxOutputIndex, valueInSatoshis) {
+    constructor(btcTxHash, btcTxOutputIndex, valueInSatoshis, height) {
         this.btcTxHash = btcTxHash;
         this.btcTxOutputIndex = btcTxOutputIndex;
         this.valueInSatoshis = valueInSatoshis;
+        this.height = height;
     }
 }
 
@@ -23,6 +24,9 @@ const parseRLPToActiveFederationUtxos = rlp => {
     const btcTxOutputIndexStartIndex = 134;
     const btcTxOutputIndexLength = 2; // 1 byte in hex
 
+    // bitcoinj UTXO serialization: value (8) | script length (4) | script (23) | tx hash (32) | index (4) | height (4) | coinbase (1)
+    const heightByteOffset = 71;
+
     rlpActiveFederationUtxosList.forEach(utxo => {
         const utxoHex = toHex(utxo);
         const valueBuffer = Buffer.from(
@@ -39,7 +43,9 @@ const parseRLPToActiveFederationUtxos = rlp => {
             16
         );
 
-        activeFederationUtxos.push(new Utxo(btcTxHash, btcTxOutputIndex, valueInSatoshis));
+        const height = Buffer.from(utxo).readUInt32LE(heightByteOffset);
+
+        activeFederationUtxos.push(new Utxo(btcTxHash, btcTxOutputIndex, valueInSatoshis, height));
     });
 
     return activeFederationUtxos;

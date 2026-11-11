@@ -6,37 +6,44 @@ const decodedBridgeState = {
         {
             btcTxHash: 'fdb6283dde8975e8912385cfba472e8a2384a5206407b9c9ed5942af1a835abf',
             btcTxOutputIndex: 0,
-            valueInSatoshis: 510000
+            valueInSatoshis: 510000,
+            height: 0
         },
         {
             btcTxHash: 'df8cf74de31c572264024e9015ea4895997e764747a64e0e7b9b542442b96dd2',
             btcTxOutputIndex: 0,
-            valueInSatoshis: 600000
+            valueInSatoshis: 600000,
+            height: 0
         },
         {
             btcTxHash: 'dfd1772cfb12891d8f80777f8aa27e26e5ccd75fff73c32445deb081506d4786',
             btcTxOutputIndex: 1,
-            valueInSatoshis: 90000000
+            valueInSatoshis: 90000000,
+            height: 0
         },
         {
             btcTxHash: 'e425a6af50e96c9f6db5726eb8e4d544e2d284b30fbe75173219cb75f6dbdb51',
             btcTxOutputIndex: 1,
-            valueInSatoshis: 301367713093
+            valueInSatoshis: 301367713093,
+            height: 0
         },
         {
             btcTxHash: 'f283ef7897c845d388e6bce39cfcd029a9692ffc3104f46225904cc0cafaf8d4',
             btcTxOutputIndex: 1,
-            valueInSatoshis: 18400820
+            valueInSatoshis: 18400820,
+            height: 0
         },
         {
             btcTxHash: 'eb68c8a98b4bf11954cd46648a4a370212d4ccd5caf8f3fc6d00bb099fcf183e',
             btcTxOutputIndex: 1,
-            valueInSatoshis: 199500000
+            valueInSatoshis: 199500000,
+            height: 0
         },
         {
             btcTxHash: 'fe30b8259b2c9a8d2069651310d094b1e942c392022b1bc7772c0cacb27a4512',
             btcTxOutputIndex: 1,
-            valueInSatoshis: 78306438
+            valueInSatoshis: 78306438,
+            height: 0
         }
     ],
     pegoutRequests: [],
