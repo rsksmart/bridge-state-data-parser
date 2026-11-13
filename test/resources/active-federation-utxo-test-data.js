@@ -179,7 +179,21 @@ const decodedActiveFederationUtxos = [
     }
 ];
 
+// A single utxo whose output index (1400) needs more than one byte
+const encodedActiveFederationUtxoWithMultiByteOutputIndex =
+    'f84eb84cadb633801500000017000000a9142a313b9167a8f5afb92c1eca2d97e730326977ac879a19349598860fc3a815499ef857367a77f85720bf942c22f61904de9d1f3aa4780500000000000000';
+
+const decodedActiveFederationUtxoWithMultiByteOutputIndex = [
+    {
+        btcTxHash: '9a19349598860fc3a815499ef857367a77f85720bf942c22f61904de9d1f3aa4',
+        btcTxOutputIndex: 1400,
+        valueInSatoshis: 92345185965
+    }
+];
+
 module.exports = {
     encodedActiveFederationUtxos,
-    decodedActiveFederationUtxos
+    decodedActiveFederationUtxos,
+    encodedActiveFederationUtxoWithMultiByteOutputIndex,
+    decodedActiveFederationUtxoWithMultiByteOutputIndex
 };

@@ -21,7 +21,7 @@ const parseRLPToActiveFederationUtxos = rlp => {
     const btcTxHashLength = 64; // 32 bytes in hex
 
     const btcTxOutputIndexStartIndex = 134;
-    const btcTxOutputIndexLength = 2; // 1 byte in hex
+    const btcTxOutputIndexLength = 8; // 4 bytes in hex, little endian
 
     rlpActiveFederationUtxosList.forEach(utxo => {
         const utxoHex = toHex(utxo);
@@ -34,10 +34,10 @@ const parseRLPToActiveFederationUtxos = rlp => {
 
         const btcTxHash = utxoHex.slice(btcTxHashStartIndex, btcTxHashStartIndex + btcTxHashLength);
 
-        const btcTxOutputIndex = parseInt(
+        const btcTxOutputIndex = Buffer.from(
             utxoHex.slice(btcTxOutputIndexStartIndex, btcTxOutputIndexStartIndex + btcTxOutputIndexLength),
-            16
-        );
+            'hex'
+        ).readUInt32LE(0);
 
         activeFederationUtxos.push(new Utxo(btcTxHash, btcTxOutputIndex, valueInSatoshis));
     });
