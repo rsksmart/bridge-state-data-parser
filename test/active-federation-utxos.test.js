@@ -1,7 +1,9 @@
 const activeFederationUtxosParser = require('../active-federation-utxos').parseRLPToActiveFederationUtxos;
 const {
     encodedActiveFederationUtxos,
-    decodedActiveFederationUtxos
+    decodedActiveFederationUtxos,
+    encodedActiveFederationUtxoWithMultiByteOutputIndex,
+    decodedActiveFederationUtxoWithMultiByteOutputIndex
 } = require('./resources/active-federation-utxo-test-data');
 
 describe('active federation utxos parser', () => {
@@ -24,5 +26,12 @@ describe('active federation utxos parser', () => {
     it('should return utxos', () => {
         const result = activeFederationUtxosParser(Buffer.from(encodedActiveFederationUtxos, 'hex'));
         expect(result).to.deep.equal(decodedActiveFederationUtxos);
+    });
+
+    it('should return the output index of a utxo whose index needs more than one byte', () => {
+        const result = activeFederationUtxosParser(
+            Buffer.from(encodedActiveFederationUtxoWithMultiByteOutputIndex, 'hex')
+        );
+        expect(result).to.deep.equal(decodedActiveFederationUtxoWithMultiByteOutputIndex);
     });
 });
