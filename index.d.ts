@@ -13,6 +13,7 @@ export interface Utxo {
     btcTxHash: string;
     btcTxOutputIndex: number;
     valueInSatoshis: number;
+    height: number;
 }
 
 export interface PegoutRequest {
