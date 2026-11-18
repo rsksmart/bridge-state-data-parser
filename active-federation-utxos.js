@@ -54,4 +54,5 @@ const parseRLPToActiveFederationUtxos = rlp => {
     return activeFederationUtxos;
 };
 
+exports.Utxo = Utxo;
 exports.parseRLPToActiveFederationUtxos = parseRLPToActiveFederationUtxos;

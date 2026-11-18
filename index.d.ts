@@ -9,7 +9,8 @@ export interface PegoutWaitingSignature {
     btcRawTx: string;
 }
 
-export interface Utxo {
+export class Utxo {
+    constructor(btcTxHash: string, btcTxOutputIndex: number, valueInSatoshis: number, height: number);
     btcTxHash: string;
     btcTxOutputIndex: number;
     valueInSatoshis: number;

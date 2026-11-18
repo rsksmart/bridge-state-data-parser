@@ -4,7 +4,7 @@ const { Interface } = require('ethers');
 
 const BridgeState = require('./bridge-state');
 const { parseRLPToPegoutRequests } = require('./pegout-request');
-const { parseRLPToActiveFederationUtxos } = require('./active-federation-utxos');
+const { Utxo, parseRLPToActiveFederationUtxos } = require('./active-federation-utxos');
 const { parseRLPToPegoutWaitingSignatures } = require('./pegout-waiting-signature');
 const { parseRLPToPegoutWaitingConfirmations } = require('./pegout-waiting-confirmation');
 const { parseRLPToNextPegoutCreationBlockNumber } = require('./next-pegout-creation-block-number');
@@ -80,6 +80,7 @@ const getBridgeState = async (host, blockToSearch = 'latest') => {
 };
 
 module.exports = {
+    Utxo,
     parseRLPToActiveFederationUtxos,
     parseRLPToPegoutWaitingSignatures,
     parseRLPToPegoutRequests,
